@@ -1,5 +1,5 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { JoinButton } from "@turtle/react";
+import { JoinButton } from "@turtledev/react";
 import { useState, version } from "react";
 import { useAccount, useSignMessage } from "wagmi";
 

@@ -1,5 +1,5 @@
 import { type QueryClient, useMutation, type UseMutationResult, useQuery } from "@tanstack/react-query";
-import { type Config, signup, type SignupOptions } from "@turtle/api";
+import { type Config, signup, type SignupOptions } from "@turtledev/api";
 import { defaultQueryClient } from "../client";
 import { useConfig } from "../useConfig";
 

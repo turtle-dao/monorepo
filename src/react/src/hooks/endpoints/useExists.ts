@@ -1,5 +1,5 @@
 import { type QueryClient, useQuery, type UseQueryResult } from "@tanstack/react-query";
-import { type Config, exists, type ExistsOptions } from "@turtle/api";
+import { type Config, exists, type ExistsOptions } from "@turtledev/api";
 import { defaultQueryClient } from "../client";
 import { useConfig } from "../useConfig";
 

@@ -1,5 +1,5 @@
-import type { Config } from "@turtle/api";
-import { defaultConfig } from "@turtle/api";
+import type { Config } from "@turtledev/api";
+import { defaultConfig } from "@turtledev/api";
 import { ConfigContext } from "../hooks";
 
 export function TurtleProvider({ config = defaultConfig, children }: {

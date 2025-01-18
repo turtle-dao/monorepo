@@ -1,5 +1,5 @@
 {
-  "name": "@turtle/showcase",
+  "name": "@turtledev/showcase",
   "type": "module",
   "version": "0.1.0",
   "private": true,
@@ -11,7 +11,7 @@
   "dependencies": {
     "@rainbow-me/rainbowkit": "^2.2.2",
     "@tanstack/react-query": "^5.64.1",
-    "@turtle/react": "workspace:*",
+    "@turtledev/react": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "viem": "2.x",

@@ -1,4 +1,4 @@
-import type { Config } from "@turtle/api";
+import type { Config } from "@turtledev/api";
 import { createContext, useContext } from "react";
 
 export const ConfigContext = createContext<Config | undefined>(undefined);
