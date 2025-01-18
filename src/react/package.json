@@ -3,17 +3,19 @@
   "type": "module",
   "version": "1.0.0",
   "license": "MIT",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "types/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "types"
   ],
   "scripts": {
     "build": "rm -rf dist && bun run build:code && bun run build:types",
-    "build:code": "bun build ./src/index.ts --outdir=./dist --packages=external --splitting --target=browser",
+    "build:code": "rollup -c --bundleConfigAsCjs",
     "build:types": "tsc -p .",
     "dev": "bun run dev:code & bun run dev:types",
-    "dev:code": "bun build ./src/index.ts --watch --outdir=./dist --packages=external --splitting --target=browser",
+    "dev:code": "rollup -w -c --bundleConfigAsCjs",
     "dev:types": "tsc -p . --watch",
     "prepublishOnly": "bun run build"
   },
@@ -26,8 +28,17 @@
     "ts-pattern": "^5.6.0"
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.26.3",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.2",
     "@types/react": "^19.0.7",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^9.2.1",
     "globals": "^15.14.0",
+    "rollup": "^4.30.1",
     "typescript": "^5.7.3",
     "vite": "^6.0.5"
   },
