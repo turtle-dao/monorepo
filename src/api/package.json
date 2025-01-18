@@ -1,0 +1,29 @@
+{
+  "name": "@turtle/api",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && bun run build:code && bun run build:types",
+    "build:code": "bun build ./src/index.ts --outdir=./dist --packages=external --splitting --target=browser",
+    "build:types": "tsc -p .",
+    "dev": "bun run dev:code & bun run dev:types",
+    "dev:code": "bun build ./src/index.ts --watch --outdir=./dist --packages=external --splitting --target=browser",
+    "dev:types": "tsc -p . --watch",
+    "prepublishOnly": "bun run build"
+  },
+  "dependencies": {
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "globals": "^15.14.0",
+    "typescript": "^5.7.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
