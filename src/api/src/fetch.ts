@@ -5,14 +5,22 @@ export interface FetchOptions {
   path: string;
   body?: unknown;
   isJson?: boolean;
+  type?: FetchType;
 }
+
+export type FetchType = "points" | "indexer";
 
 export async function doFetch<Z extends ZodType>(
   config: Config,
   schema: Z,
-  { path, body, isJson = true }: FetchOptions,
+  {
+    path,
+    body,
+    isJson = true,
+    type = "points",
+  }: FetchOptions,
 ): Promise<z.infer<Z>> {
-  const url = `${config.endpoint}${path}`;
+  const url = `${config[`${type}Endpoint`]}${path}`;
 
   const response = await fetch(url.toString(), {
     method: body ? "POST" : "GET",
@@ -30,8 +38,13 @@ export async function doFetch<Z extends ZodType>(
 
   if (isJson) {
     const json = await response.json();
+    const result = await schema.safeParseAsync(json);
 
-    return schema.parse(json);
+    if (!result.success) {
+      throw new Error(`Failed to parse ${url.toString()}: ${result.error.message}`);
+    }
+
+    return result.data;
   }
 
   return response.text();

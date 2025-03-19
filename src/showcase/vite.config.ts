@@ -1,7 +1,37 @@
+import path from "node:path";
+import mdx from "@mdx-js/rollup";
+import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react-swc";
+import rehypePrettyCode from "rehype-pretty-code";
+import Icons from "unplugin-icons/vite";
 import { defineConfig } from "vite";
+import { viteShikiReactPlugin } from "./src/lib/vite-plugin-shiki-react";
+
+/** @type {import('rehype-pretty-code').Options} */
+const prettyCodeOptions = {
+  theme: "github-dark",
+};
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    mdx({
+      rehypePlugins: [[
+        rehypePrettyCode,
+        prettyCodeOptions,
+      ]],
+    }),
+    tailwindcss(),
+    Icons({
+      jsx: "react",
+      compiler: "jsx",
+    }),
+    react(),
+    viteShikiReactPlugin(),
+  ],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
 });

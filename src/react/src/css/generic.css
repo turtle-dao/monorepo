@@ -1,0 +1,76 @@
+.turtle-text {
+  color: var(--turtle-text-primary);
+  font-weight: 500;
+  font-family: var(--turtle-font-family);
+}
+
+.turtle-text-heading {
+  font-size: calc(var(--turtle-font-size) * 1.75);
+  font-weight: 600;
+  color: var(--turtle-text-primary);
+  font-family: var(--turtle-font-family);
+}
+
+.turtle-text-subheading {
+  font-size: calc(var(--turtle-font-size) * 1.15);
+  font-weight: 500;
+  color: var(--turtle-text-primary);
+  font-family: var(--turtle-font-family);
+}
+
+.turtle-text-body {
+  font-weight: var(--turtle-font-weight);
+  font-size: var(--turtle-font-size);
+  line-height: 1.45rem;
+  color: var(--turtle-text-primary);
+  font-family: var(--turtle-font-family);
+}
+
+.turtle-badge {
+  background: var(--turtle-bg-accent);
+  border-radius: calc(var(--turtle-border-radius) / 1.5);
+  padding: 0.125rem 0.35rem;
+  font-size: calc(var(--turtle-font-size) * 0.85);
+  font-weight: 600;
+  font-family: monospace;
+  color: var(--turtle-text-secondary);
+}
+
+.turtle-input {
+  background: var(--turtle-bg-primary);
+  color: var(--turtle-text-primary);
+  border-radius: var(--turtle-border-radius);
+  border-color: var(--turtle-border-color);
+  border-width: 1px;
+  border-style: solid;
+  padding: 0.5rem 1rem;
+  outline: none;
+  font-family: var(--turtle-font-family);
+  font-size: var(--turtle-font-size);
+  font-weight: var(--turtle-font-weight);
+}
+
+.turtle-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  background-color: var(--turtle-button-bg);
+  color: var(--turtle-button-text);
+  cursor: pointer;
+  border-radius: var(--turtle-border-radius);
+  padding: 7px 14px;
+  font-weight: 500;
+  font-size: calc(var(--turtle-font-size) * 0.95);
+  font-family: var(--turtle-font-family);
+  border: none;
+  outline: none;
+}
+
+.turtle-logo {
+  width: 1.75rem;
+  height: 1.75rem;
+  background: var(--turtle-bg-accent);
+  border-radius: 99999px;
+  margin-right: 0.375rem;
+}

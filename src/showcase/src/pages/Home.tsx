@@ -11,7 +11,7 @@ export default function Home(): React.ReactElement {
   const { signMessageAsync } = useSignMessage();
 
   return (
-    <div className="w-screen h-screen bg-zinc-950 text-white flex justify-center p-2 pt-4 sm:pt-10">
+    <div className="bg-zinc-950 text-white flex justify-center p-2 pt-4 sm:pt-10">
       <div className="p-3 flex flex-col gap-3 w-full max-w-[450px]">
         <h1 className="text-2xl font-bold">Turtle Preview (internal)</h1>
 

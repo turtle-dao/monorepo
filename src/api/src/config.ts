@@ -1,7 +1,9 @@
 export interface Config {
-  endpoint: string;
+  pointsEndpoint: string;
+  indexerEndpoint: string;
 }
 
 export const defaultConfig: Config = {
-  endpoint: "https://points.turtle.club/new",
+  pointsEndpoint: "https://points.turtle.club/new",
+  indexerEndpoint: "https://index.turtle.vision",
 };

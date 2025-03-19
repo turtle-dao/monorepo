@@ -1,20 +1,21 @@
 {
   "name": "@turtledev/react",
   "type": "module",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "types/index.d.ts",
   "files": [
     "dist",
+    "styles.css",
     "types"
   ],
   "scripts": {
     "build": "rm -rf dist && bun run build:code && bun run build:types",
     "build:code": "rollup -c --bundleConfigAsCjs",
     "build:types": "tsc -p .",
-    "dev": "bun run dev:code & bun run dev:types",
+    "dev": "concurrently \"bun run dev:code\" \"bun run dev:types\"",
     "dev:code": "rollup -w -c --bundleConfigAsCjs",
     "dev:types": "tsc -p . --watch",
     "prepublishOnly": "bun run build"
@@ -23,7 +24,7 @@
     "@tanstack/query-sync-storage-persister": "^5.64.1",
     "@tanstack/react-query": "^5.64.1",
     "@tanstack/react-query-persist-client": "^5.64.1",
-    "@turtledev/api": "workspace:1.1.0",
+    "@turtledev/api": "workspace:1.2.0",
     "react": "^19.0.0",
     "ts-pattern": "^5.6.0"
   },
@@ -37,8 +38,15 @@
     "@types/react": "^19.0.7",
     "babel-core": "^6.26.3",
     "babel-loader": "^9.2.1",
+    "concurrently": "^9.1.2",
+    "cssnano": "^7.0.6",
     "globals": "^15.14.0",
+    "postcss-cssnext": "^3.1.1",
+    "postcss-import": "^16.1.0",
+    "postcss-nested": "^7.0.2",
+    "postcss-simple-vars": "^7.0.1",
     "rollup": "^4.30.1",
+    "rollup-plugin-postcss": "^4.0.2",
     "typescript": "^5.7.3",
     "vite": "^6.0.5"
   },
