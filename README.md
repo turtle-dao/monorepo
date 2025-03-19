@@ -1,15 +1,5 @@
 # monorepo
 
-To install dependencies:
+Welcome to the Turtle Typescript monorepo!
 
-```bash
-bun install
-```
-
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.1.34. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+You can find the docs at [https://docs.turtle.vision/](https://docs.turtle.vision/)
