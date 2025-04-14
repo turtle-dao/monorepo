@@ -3,12 +3,8 @@ import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
-import cssnano from "cssnano";
-import cssnext from "postcss-cssnext";
-import postcssImport from "postcss-import";
-import nested from "postcss-nested";
-import simplevars from "postcss-simple-vars";
-import postcss from "rollup-plugin-postcss";
+import { vanillaExtractPlugin } from "@vanilla-extract/rollup-plugin";
+import tsconfigPaths from "rollup-plugin-tsconfig-paths";
 
 const packageJson = require("./package.json");
 
@@ -32,6 +28,7 @@ export default [
     ],
     plugins: [
       resolve({ extensions }),
+      tsconfigPaths(),
       commonjs(),
       babel({
         babelHelpers: "bundled",
@@ -46,26 +43,8 @@ export default [
         outDir: "dist",
       }),
       terser(),
-    ],
-  },
-  {
-    input: "src/css.js",
-    output: {
-      file: "css-bundle.js",
-      format: "esm",
-    },
-    plugins: [
-      postcss({
-        plugins: [
-          postcssImport(),
-          simplevars(),
-          nested(),
-          cssnext({ warnForDuplicates: false }),
-          cssnano(),
-        ],
-        extensions: [".css"],
-        extract: "styles.css",
-        sourceMap: false,
+      vanillaExtractPlugin({
+        identifiers: "short",
       }),
     ],
   },

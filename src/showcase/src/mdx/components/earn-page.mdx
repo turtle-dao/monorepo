@@ -42,13 +42,6 @@ To use the EarnPage component, you'll need to install the Turtle package:
 }}
 </Codeblock>
 
-Make sure to import the required styles.
-This is generally done in the `App.tsx` file:
-
-<Codeblock filename="App.tsx" language="tsx">
-{`import "@turtledev/react/styles.css";`}
-</Codeblock>
-
 ## Required Props
 
 The EarnPage component requires several props to function properly:
@@ -254,7 +247,6 @@ Here's a complete example using the EarnPage component:
 {`import { useAccount, useSignMessage } from "wagmi";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { EarnPage, TurtleProvider, defaultThemeConfig } from "@turtledev/react";
-import "@turtledev/react/styles.css";
 
 export function MyEarnPage() {
     const { address } = useAccount();

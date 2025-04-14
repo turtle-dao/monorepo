@@ -1,6 +1,6 @@
+import { useExists, usePrepareSignup, useSignup } from "@/hooks";
 import { useState } from "react";
-import { match, P } from "ts-pattern";
-import { useExists, usePrepareSignup, useSignup } from "../hooks";
+import { match } from "ts-pattern";
 
 export function JoinButton({
   user,

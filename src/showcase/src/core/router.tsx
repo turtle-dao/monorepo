@@ -1,4 +1,5 @@
 import Layout from "@/components/custom/layout";
+import { EarnPageDev } from "@/pages/EarnPageDev";
 import { EarnPageExample } from "@/pages/EarnPageExample";
 import { EarnPageWizardPage } from "@/pages/EarnPageWizardPage";
 import { MdxPage } from "@/pages/MdxPage";
@@ -23,6 +24,7 @@ export function Router(): React.ReactElement {
           <Route path="*" element={<NotFound />} />
         </Route>
 
+        <Route path="/earn-dev" element={<EarnPageDev />} />
         <Route path="/earn" element={<EarnPageExample />} />
         <Route path="/earn-wizard" element={<EarnPageWizardPage />} />
       </Routes>

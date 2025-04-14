@@ -9,7 +9,6 @@ import { Link } from "react-router";
 import { useAccount, useSignMessage } from "wagmi";
 import BookOpen from "~icons/heroicons/book-open-16-solid";
 import Star from "~icons/heroicons/star-16-solid";
-import "@turtledev/react/styles.css";
 
 export function EarnPageExample(): React.ReactElement {
   const [showHazard, setShowHazard] = useState(false);

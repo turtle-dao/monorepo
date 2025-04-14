@@ -11,4 +11,9 @@ export default antfu({
 
   typescript: true,
   react: true,
+
+  rules: {
+    "prefer-const": "off",
+    "unused-imports/no-unused-imports": "off",
+  }
 });

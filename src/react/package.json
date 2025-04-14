@@ -8,7 +8,6 @@
   "types": "types/index.d.ts",
   "files": [
     "dist",
-    "styles.css",
     "types"
   ],
   "scripts": {
@@ -21,12 +20,19 @@
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
+    "@radix-ui/react-popover": "^1.1.6",
+    "@radix-ui/react-slot": "^1.1.2",
     "@tanstack/query-sync-storage-persister": "^5.64.1",
     "@tanstack/react-query": "^5.64.1",
     "@tanstack/react-query-persist-client": "^5.64.1",
     "@turtledev/api": "workspace:1.2.0",
+    "@vanilla-extract/css": "^1.17.1",
+    "@vanilla-extract/dynamic": "^2.1.2",
+    "@vanilla-extract/recipes": "^0.5.5",
     "react": "^19.0.0",
-    "ts-pattern": "^5.6.0"
+    "ts-pattern": "^5.6.0",
+    "wouter": "^3.6.0",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.26.3",
@@ -36,17 +42,18 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/react": "^19.0.7",
+    "@vanilla-extract/rollup-plugin": "^1.3.14",
+    "autoprefixer": "^10.4.21",
     "babel-core": "^6.26.3",
     "babel-loader": "^9.2.1",
+    "browserslist": "^4.24.4",
     "concurrently": "^9.1.2",
-    "cssnano": "^7.0.6",
     "globals": "^15.14.0",
-    "postcss-cssnext": "^3.1.1",
-    "postcss-import": "^16.1.0",
-    "postcss-nested": "^7.0.2",
-    "postcss-simple-vars": "^7.0.1",
+    "lightningcss": "^1.29.3",
     "rollup": "^4.30.1",
-    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-css-only": "^4.5.2",
+    "rollup-plugin-styles": "^4.0.0",
+    "rollup-plugin-tsconfig-paths": "^1.5.2",
     "typescript": "^5.7.3",
     "vite": "^6.0.5"
   },

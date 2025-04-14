@@ -5,7 +5,6 @@ import { TurtleLogo } from "@turtledev/react";
 import { Link } from "react-router";
 import BookOpen from "~icons/heroicons/book-open-16-solid";
 import Star from "~icons/heroicons/star-16-solid";
-import "@turtledev/react/styles.css";
 
 export function EarnPageWizardPage(): React.ReactElement {
   return (

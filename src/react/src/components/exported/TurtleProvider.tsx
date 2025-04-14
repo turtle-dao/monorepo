@@ -1,8 +1,8 @@
 import type { Config } from "@turtledev/api";
-import type { TurtleThemeConfig } from "../theme";
+import type { TurtleThemeConfig } from "../../theme";
 import { defaultConfig } from "@turtledev/api";
-import { createContext, useContext, useEffect, useMemo } from "react";
-import { defaultThemeConfig } from "../theme/default";
+import { createContext, useContext, useMemo } from "react";
+import { defaultThemeConfig } from "../../theme/default";
 
 interface TurtleContextType {
   config: Config;
@@ -25,8 +25,13 @@ export function TurtleProvider({
     ...themeConfig,
   }), [themeConfig]);
 
+  const valueMemo = useMemo(() => ({
+    config,
+    themeConfig: fullTheme,
+  }), [config, fullTheme]);
+
   return (
-    <TurtleContext value={{ config, themeConfig: fullTheme }}>
+    <TurtleContext value={valueMemo}>
       {children}
     </TurtleContext>
   );

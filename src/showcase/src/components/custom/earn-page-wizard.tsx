@@ -303,6 +303,8 @@ function ThemeColorsPanel({
   setBgSecondary,
   bgAccent,
   setBgAccent,
+  bgTranslucent,
+  setBgTranslucent,
   textPrimary,
   setTextPrimary,
   textSecondary,
@@ -321,6 +323,8 @@ function ThemeColorsPanel({
   setBgSecondary: (value: string) => void;
   bgAccent: string;
   setBgAccent: (value: string) => void;
+  bgTranslucent: string;
+  setBgTranslucent: (value: string) => void;
   textPrimary: string;
   setTextPrimary: (value: string) => void;
   textSecondary: string;
@@ -389,6 +393,13 @@ function ThemeColorsPanel({
           value={bgAccent}
           defaultValue={defaultThemeConfig[themeType].bgAccent}
           onChange={setBgAccent}
+        />
+
+        <ColorControl
+          label="Translucent"
+          value={bgTranslucent}
+          defaultValue={defaultThemeConfig[themeType].bgTranslucent}
+          onChange={setBgTranslucent}
         />
       </div>
 
@@ -501,10 +512,7 @@ ${propsString}
           >
             <CardContent>
               <TurtleProvider themeConfig={themeConfig}>
-                <InternalEarnPage
-                  enableSearchBar={enableSearchBar}
-                  disableText={disableText}
-                />
+                <InternalEarnPage />
               </TurtleProvider>
             </CardContent>
           </Card>
@@ -518,13 +526,7 @@ ${propsString}
   );
 }
 
-function InternalEarnPage({
-  enableSearchBar,
-  disableText,
-}: {
-  enableSearchBar: boolean;
-  disableText: boolean;
-}): React.ReactElement {
+function InternalEarnPage(): React.ReactElement {
   const { address } = useAccount();
   const { signMessageAsync } = useSignMessage();
   const { openConnectModal } = useConnectModal();
@@ -540,8 +542,6 @@ function InternalEarnPage({
     }}
     >
       <EarnPage
-        enableSearch={enableSearchBar}
-        disableText={disableText}
         user={address}
         signMessage={async message => await signMessageAsync({ message })}
         referral="TURTLE"
@@ -567,6 +567,7 @@ export function EarnPageWizard(): React.ReactElement {
   const [lightBgPrimary, setLightBgPrimary] = useState(defaultThemeConfig.light.bgPrimary);
   const [lightBgSecondary, setLightBgSecondary] = useState(defaultThemeConfig.light.bgSecondary);
   const [lightBgAccent, setLightBgAccent] = useState(defaultThemeConfig.light.bgAccent);
+  const [lightBgTranslucent, setLightBgTranslucent] = useState(defaultThemeConfig.light.bgTranslucent);
   const [lightBorderColor, setLightBorderColor] = useState(defaultThemeConfig.light.borderColor);
   const [lightTextPrimary, setLightTextPrimary] = useState(defaultThemeConfig.light.textPrimary);
   const [lightTextSecondary, setLightTextSecondary] = useState(defaultThemeConfig.light.textSecondary);
@@ -576,6 +577,7 @@ export function EarnPageWizard(): React.ReactElement {
   const [darkBgPrimary, setDarkBgPrimary] = useState(defaultThemeConfig.dark.bgPrimary);
   const [darkBgSecondary, setDarkBgSecondary] = useState(defaultThemeConfig.dark.bgSecondary);
   const [darkBgAccent, setDarkBgAccent] = useState(defaultThemeConfig.dark.bgAccent);
+  const [darkBgTranslucent, setDarkBgTranslucent] = useState(defaultThemeConfig.dark.bgTranslucent);
   const [darkBorderColor, setDarkBorderColor] = useState(defaultThemeConfig.dark.borderColor);
   const [darkTextPrimary, setDarkTextPrimary] = useState(defaultThemeConfig.dark.textPrimary);
   const [darkTextSecondary, setDarkTextSecondary] = useState(defaultThemeConfig.dark.textSecondary);
@@ -596,6 +598,7 @@ export function EarnPageWizard(): React.ReactElement {
       bgPrimary: lightBgPrimary,
       bgSecondary: lightBgSecondary,
       bgAccent: lightBgAccent,
+      bgTranslucent: lightBgTranslucent,
       borderColor: lightBorderColor,
       textPrimary: lightTextPrimary,
       textSecondary: lightTextSecondary,
@@ -606,6 +609,7 @@ export function EarnPageWizard(): React.ReactElement {
       bgPrimary: darkBgPrimary,
       bgSecondary: darkBgSecondary,
       bgAccent: darkBgAccent,
+      bgTranslucent: darkBgTranslucent,
       borderColor: darkBorderColor,
       textPrimary: darkTextPrimary,
       textSecondary: darkTextSecondary,
@@ -684,6 +688,8 @@ export function EarnPageWizard(): React.ReactElement {
                 setBgSecondary={setLightBgSecondary}
                 bgAccent={lightBgAccent}
                 setBgAccent={setLightBgAccent}
+                bgTranslucent={lightBgTranslucent}
+                setBgTranslucent={setLightBgTranslucent}
                 textPrimary={lightTextPrimary}
                 setTextPrimary={setLightTextPrimary}
                 textSecondary={lightTextSecondary}
@@ -704,6 +710,8 @@ export function EarnPageWizard(): React.ReactElement {
                 setBgSecondary={setDarkBgSecondary}
                 bgAccent={darkBgAccent}
                 setBgAccent={setDarkBgAccent}
+                bgTranslucent={darkBgTranslucent}
+                setBgTranslucent={setDarkBgTranslucent}
                 textPrimary={darkTextPrimary}
                 setTextPrimary={setDarkTextPrimary}
                 textSecondary={darkTextSecondary}

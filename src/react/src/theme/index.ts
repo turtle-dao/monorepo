@@ -5,6 +5,7 @@ export interface ThemeColors {
   bgPrimary: string;
   bgSecondary: string;
   bgAccent: string;
+  bgTranslucent: string;
 
   // Text colors
   textPrimary: string;
