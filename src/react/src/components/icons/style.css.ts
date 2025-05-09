@@ -1,6 +1,9 @@
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
 
 export const icon = recipe({
+  base: {
+    flexShrink: 0,
+  },
   variants: {
     size: {
       sm: {
@@ -16,9 +19,15 @@ export const icon = recipe({
         height: "1.25rem",
       },
     },
+    inline: {
+      true: {
+        display: "inline-block",
+      },
+    },
   },
   defaultVariants: {
     size: "md",
+    inline: false,
   },
 });
 

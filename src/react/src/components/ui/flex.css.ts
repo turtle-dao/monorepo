@@ -79,6 +79,11 @@ export const flex = recipe({
         gap: `calc(${themeVars.gap} * 3)`,
       },
     },
+    wrap: {
+      true: {
+        flexWrap: "wrap",
+      },
+    },
   },
   compoundVariants: [
     {
@@ -106,6 +111,7 @@ export const flex = recipe({
     direction: "row",
     reverse: false,
     gap: "md",
+    wrap: false,
   },
 });
 

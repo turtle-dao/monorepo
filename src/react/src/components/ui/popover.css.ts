@@ -10,21 +10,25 @@ import {
 } from "@/theme/animations.css";
 import { padding, rounding } from "@/theme/constants.css";
 import { themeVars } from "@/theme/theme.css";
-import { style } from "@vanilla-extract/css";
+import { createVar, style } from "@vanilla-extract/css";
+
+export const popoverWidth = createVar({
+  initialValue: "225px",
+  inherits: false,
+  syntax: "<length>",
+});
 
 export const popover = style([
   rounding({ size: "lg" }),
   padding(),
   {
     zIndex: 50,
-    width: "225px",
+    width: popoverWidth,
     border: `1px solid ${themeVars.borderColor}`,
     fontWeight: 500,
     background: themeVars.bgPrimary,
     outline: "none",
     transformOrigin: "var(--radix-popover-content-transform-origin)",
-
-    // TODO: Shadow?
 
     selectors: {
       "&[data-state='open']": {
@@ -65,12 +69,22 @@ export const popover = style([
   },
 ]);
 
-export const popoverHeader = style({
-  marginBottom: `calc(${themeVars.padding} * 0.5)`,
+export const header = style({
   padding: `0 calc(${themeVars.padding} * 0.375)`,
+  paddingBottom: `calc(${themeVars.padding} * 0.5)`,
+  marginBottom: `calc(${themeVars.padding} * -0.175)`,
+  background: themeVars.bgPrimary,
 });
 
 export const popoverFooter = style({
   marginTop: `calc(${themeVars.padding} * 0.5)`,
   padding: `0 calc(${themeVars.padding} * 0.375)`,
+});
+
+export const active = style({
+  width: "6px",
+  height: "6px",
+  marginRight: "5px",
+  borderRadius: "99999px",
+  background: themeVars.buttonBgColor,
 });

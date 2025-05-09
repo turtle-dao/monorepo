@@ -32,3 +32,17 @@ export const padding = recipe({
     size: "md",
   },
 });
+
+export const gap = recipe({
+  variants: {
+    size: {
+      sm: { gap: calc(themeVars.gap, 0.5) },
+      md: { gap: calc(themeVars.gap, 0.75) },
+      lg: { gap: calc(themeVars.gap, 1) },
+      xl: { gap: calc(themeVars.gap, 1.5) },
+    },
+  },
+  defaultVariants: {
+    size: "md",
+  },
+});

@@ -1,13 +1,13 @@
 import { type FC, type ReactElement, type ReactNode, useState } from "react";
 import { Button } from "./button";
-import { Flex } from "./flex";
+import * as comboBox from "./combo-box.css";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
-import { popoverHeader } from "./popover.css";
+import * as popover from "./popover.css";
 import { Text } from "./text";
 
 export function ComboBox<T>({
   title,
-  value: [_, setValue],
+  value: [value, setValue],
   options,
   itemKey: key,
   render: Render,
@@ -30,9 +30,9 @@ export function ComboBox<T>({
         {children}
       </PopoverTrigger>
       <PopoverContent>
-        <Flex direction="column" gap="xs" items="stretch">
+        <div className={comboBox.content}>
           {title && (
-            <Text bold size="sm" color="secondary" className={popoverHeader}>
+            <Text bold size="sm" color="secondary" className={comboBox.header}>
               {title}
             </Text>
           )}
@@ -48,10 +48,14 @@ export function ComboBox<T>({
                 setOpen(false);
               }}
             >
+              {value === option && (
+                <div className={popover.active} />
+              )}
+
               <Render value={option} />
             </Button>
           ))}
-        </Flex>
+        </div>
       </PopoverContent>
     </Popover>
   );

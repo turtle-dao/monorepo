@@ -21,5 +21,8 @@
     "eslint": "^9.23.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19"
+  },
+  "dependencies": {
+    "viem": "^2.27.2"
   }
 }

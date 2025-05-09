@@ -9,7 +9,7 @@ export function Z({
   index?: number;
 }): React.ReactElement {
   return (
-    <Root style={{ zIndex }}>
+    <Root style={{ zIndex, position: "relative" }}>
       {children}
     </Root>
   );

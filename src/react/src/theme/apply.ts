@@ -32,6 +32,7 @@ export function useThemeApply(): {
         textSecondary: colors.textSecondary,
         buttonBgColor: colors.buttonBgColor,
         buttonTextColor: colors.buttonTextColor,
+        errorColor: colors.errorColor,
       }),
     };
   }, [themeConfig]);

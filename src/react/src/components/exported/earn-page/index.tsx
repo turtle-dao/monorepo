@@ -4,7 +4,7 @@ import { Flex } from "@/components/ui/flex";
 import { useThemeApply } from "@/theme/apply";
 import { Link, Route, Router } from "wouter";
 import { useHashLocation } from "wouter/use-hash-location";
-import { EarnPageDeal } from "./deal";
+import { EarnPageDeal } from "./deal/deal";
 import * as earnPage from "./index.css";
 import { EarnPageLanding } from "./landing";
 

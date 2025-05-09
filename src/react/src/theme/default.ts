@@ -20,6 +20,7 @@ export const defaultThemeConfig: TurtleThemeConfig = {
     textSecondary: "rgba(30, 30, 30)",
     buttonBgColor: "hsl(117, 85%, 69%)",
     buttonTextColor: "rgb(10, 10, 10)",
+    errorColor: "rgb(247, 23, 53)",
   },
   dark: {
     bgPrimary: "rgb(32, 32, 34)",
@@ -31,5 +32,6 @@ export const defaultThemeConfig: TurtleThemeConfig = {
     textSecondary: "rgba(225, 225, 225)",
     buttonBgColor: "hsl(117, 85%, 69%)",
     buttonTextColor: "rgb(10, 10, 10)",
+    errorColor: "rgb(246, 56, 85)",
   },
 };

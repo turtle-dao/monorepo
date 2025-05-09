@@ -2,16 +2,13 @@ import type { EarnPageProps } from "./types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ComboBox } from "@/components/ui/combo-box";
-import { Flex } from "@/components/ui/flex";
-import { Input } from "@/components/ui/input";
+import { Table } from "@/components/ui/table";
 import { Heading, Text } from "@/components/ui/text";
 import { Z } from "@/components/ui/z";
 import { useExists, usePartners, usePrepareSignup, useSignup } from "@/hooks";
 import { usePartnersDeals } from "@/hooks/endpoints/usePartnersDeals";
 import { useMemo, useState } from "react";
 import { Link } from "wouter";
-import { FunnelIcon } from "../../icons/funnel";
 import { TurtleLogo } from "../TurtleLogo";
 import * as earnPageLanding from "./landing.css";
 
@@ -25,9 +22,7 @@ export function EarnPageLanding({
   onError,
   onSuccess,
 }: EarnPageProps): React.ReactElement {
-  const [search, setSearch] = useState("");
   const [signing, setSigning] = useState(false);
-  const [partnerType, setPartnerType] = useState<string | null>(null);
 
   const { data: partners } = usePartners();
 
@@ -54,47 +49,20 @@ export function EarnPageLanding({
       }
     : undefined);
 
-  const searchLower = useMemo(() => search.toLowerCase(), [search]);
+  const combinedDeals = useMemo(() => {
+    if (!partnersDeals || !partners)
+      return null;
 
-  const partnerTypes = useMemo(() => {
-    if (!partners)
-      return [null];
+    return partnersDeals.deals.map((deal) => {
+      const partner = partners.partners.find(p => p.id === deal.partner_id);
 
-    const types = new Set<string>();
+      if (!partner)
+        return null;
 
-    for (const partner of partners.partners) {
-      if (partner.type)
-        types.add(partner.type);
-    }
-
-    return [null, ...types];
-  }, [partners]);
-
-  const filteredDeals = useMemo(
-    () =>
-      (partnersDeals !== undefined && partnersDeals !== null && partners !== undefined && partners !== null)
-        ? partnersDeals.deals
-            .map((deal) => {
-              const partner = partners?.partners.find(p => p.id === deal.partner_id);
-
-              if (!partner)
-                return null;
-
-              return { deal, partner };
-            })
-            .filter(deal => deal !== null)
-            .filter(({ deal, partner }) => {
-              const searches = [deal.name, deal.description, partner.type, partner.name]
-                .map(s => s.toLowerCase());
-
-              return searches.some(s =>
-                s.includes(searchLower)
-                && (!partnerType || partner.type === partnerType));
-            })
-            .toSorted(({ partner: partnerA }, { partner: partnerB }) => partnerA.name.localeCompare(partnerB.name))
-        : null,
-    [partnersDeals, partners, searchLower, partnerType],
-  );
+      return { deal, partner };
+    })
+      .filter(deal => deal !== null);
+  }, [partnersDeals, partners]);
 
   const sign = async (): Promise<void> => {
     if (!prepareData)
@@ -142,143 +110,88 @@ export function EarnPageLanding({
         </div>
       </Z>
 
-      <div className={earnPageLanding.tableCard}>
-        <div className={earnPageLanding.tableHeader}>
-          <Flex items="center" gap="sm">
-            <Text bold>Active Deals</Text>
+      <Table
+        title="Active Deals"
+        items={combinedDeals}
+        keyFn={({ deal }) => deal.id}
+        searchItems={({ deal, partner }) => [deal.name, deal.description, partner.type, partner.name]}
+        orderBy={(a, b) => a.partner.name.localeCompare(b.partner.name)}
+        render={({ item: { deal, partner } }) => {
+          if (deal.status !== "active")
+            return null;
 
-            <div />
+          return (
+            <Card key={deal.id}>
+              <div className={earnPageLanding.cardHeader}>
+                <div className={earnPageLanding.emptyLogo} />
 
-            <ComboBox
-              title="Filter by type"
-              value={[partnerType, setPartnerType]}
-              options={partnerTypes}
-              itemKey={t => t ?? "all"}
-              render={({ value }) => <>{value ?? "All"}</>}
-            >
-              <Button color="ghost" size="sm">
-                <FunnelIcon />
-                {partnerType ?? "All"}
-              </Button>
-            </ComboBox>
-          </Flex>
+                <Heading level={3}>
+                  {partner.name}
+                </Heading>
 
-          <Flex items="center" gap="sm">
-            <Input
-              type="text"
-              placeholder="Search"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              className={earnPageLanding.search}
-            />
-          </Flex>
-        </div>
+                <div className={earnPageLanding.spacer} />
 
-        <div className={earnPageLanding.tableContent}>
-          <div className={earnPageLanding.grid}>
-            {filteredDeals === null && Array.from({ length: 6 }).map((_, index) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <div key={index.toString()} className={earnPageLanding.loadingCard} />
-            ))}
-
-            {filteredDeals !== null && filteredDeals.map(({ deal, partner }) => {
-              if (!partner || deal.status !== "active")
-                return null;
-
-              return (
-                <Card key={deal.id}>
-                  <div className={earnPageLanding.cardHeader}>
-                    <div className={earnPageLanding.emptyLogo} />
-
-                    <Heading level={3}>
-                      {partner.name}
-                    </Heading>
-
-                    <div className={earnPageLanding.spacer} />
-
-                    <div className={earnPageLanding.boostContainer}>
-                      <TurtleLogo style={{ width: "1.75rem", height: "1.75rem" }} />
-
-                      <Text>
-                        {deal.boost.boost_pct}
-                        % Boost
-                      </Text>
-                    </div>
-                  </div>
+                <div className={earnPageLanding.boostContainer}>
+                  <TurtleLogo style={{ width: "1.75rem", height: "1.75rem" }} />
 
                   <Text>
-                    {partner.description}
+                    {deal.boost.boost_pct}
+                    % Boost
                   </Text>
+                </div>
+              </div>
 
-                  <div className={earnPageLanding.spacer} />
+              <Text>
+                {partner.description}
+              </Text>
 
-                  <div className={earnPageLanding.cardActions}>
-                    <Badge>
-                      {partner.type}
-                    </Badge>
+              <div className={earnPageLanding.spacer} />
 
-                    {isCta && (
-                      <Button asChild>
-                        <a href={deal.url} target="_blank">
-                          Deposit
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="currentColor" fillRule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06" clipRule="evenodd" /></svg>
-                        </a>
-                      </Button>
-                    )}
+              <div className={earnPageLanding.cardActions}>
+                <Badge>
+                  {partner.type}
+                </Badge>
 
-                    {!isCta && (
-                      <Button
-                        onClick={async () => {
-                          if (signing)
-                            return;
+                {isCta && (
+                  <Button asChild>
+                    <a href={deal.url} target="_blank">
+                      Deposit
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="currentColor" fillRule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06" clipRule="evenodd" /></svg>
+                    </a>
+                  </Button>
+                )}
 
-                          if (!user) {
-                            openConnectionModal?.();
-                            return;
-                          }
+                {!isCta && (
+                  <Button
+                    onClick={async () => {
+                      if (signing)
+                        return;
 
-                          if (exists === false) {
-                            await sign();
-                            return;
-                          }
+                      if (!user) {
+                        openConnectionModal?.();
+                        return;
+                      }
 
-                          window.open(deal.url, "_blank");
-                        }}
-                      >
-                        {signing && "Joining..."}
+                      if (exists === false) {
+                        await sign();
+                        return;
+                      }
 
-                        {user && exists === false && !signing && "Join Turtle"}
+                      window.open(deal.url, "_blank");
+                    }}
+                  >
+                    {signing && "Joining..."}
 
-                        {!user && "Connect Wallet"}
-                      </Button>
-                    )}
-                  </div>
-                </Card>
-              );
-            })}
-          </div>
+                    {user && exists === false && !signing && "Join Turtle"}
 
-          {filteredDeals !== null && filteredDeals.length === 0 && (
-            <div className={earnPageLanding.empty}>
-              <Heading level={3}>
-                No deals found
-              </Heading>
-            </div>
-          )}
-
-          {filteredDeals === null && (
-            <div className={earnPageLanding.empty}>
-              <Heading level={3}>
-                Loading
-              </Heading>
-            </div>
-          )}
-        </div>
-
-        <div className={earnPageLanding.tableFooter}></div>
-      </div>
-
-      <div className={earnPageLanding.tablePadding} />
+                    {!user && "Connect Wallet"}
+                  </Button>
+                )}
+              </div>
+            </Card>
+          );
+        }}
+      />
     </>
   );
 }

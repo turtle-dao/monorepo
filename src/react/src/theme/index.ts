@@ -17,6 +17,9 @@ export interface ThemeColors {
   // Button colors
   buttonBgColor: string;
   buttonTextColor: string;
+
+  // Error color
+  errorColor: string;
 }
 
 export interface TurtleThemeConfig {

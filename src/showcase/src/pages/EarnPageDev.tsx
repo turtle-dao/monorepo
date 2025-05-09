@@ -1,11 +1,13 @@
 import { ConnectButton, useConnectModal } from "@rainbow-me/rainbowkit";
 import { defaultThemeConfig, EarnPage, TurtleLogo, TurtleProvider } from "@turtledev/react";
-import { useAccount, useSignMessage } from "wagmi";
+import { sendTransaction, waitForTransactionReceipt } from "@wagmi/core";
+import { useAccount, useConfig, useSignMessage } from "wagmi";
 
 export function EarnPageDev(): React.ReactElement {
   const { address } = useAccount();
   const { openConnectModal } = useConnectModal();
   const { signMessageAsync } = useSignMessage();
+  const config = useConfig();
 
   const signMessage = async (message: string): Promise<string> => {
     const signature = await signMessageAsync({ message });
@@ -30,7 +32,18 @@ export function EarnPageDev(): React.ReactElement {
             <ConnectButton />
           </>
         )}
-        openConnectionModal={openConnectModal}
+        openConnectionModal={openConnectModal ?? (() => console.error("openConnectModal is not defined"))}
+        sendTransaction={async (transaction) => {
+          const tx = await sendTransaction(config, transaction);
+          const receipt = await waitForTransactionReceipt(config, {
+            ...config,
+            hash: tx,
+            confirmations: 1,
+            pollingInterval: 1000,
+          });
+
+          return receipt.transactionHash;
+        }}
         signMessage={signMessage}
       />
     </TurtleProvider>

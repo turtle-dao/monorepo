@@ -8,18 +8,19 @@ export interface FetchOptions {
   type?: FetchType;
 }
 
-export type FetchType = "points" | "indexer";
+export type FetchType = "points" | "indexer" | "earn";
 
-export async function doFetch<Z extends ZodType>(
+export async function doRawFetch(
   config: Config,
-  schema: Z,
   {
     path,
     body,
-    isJson = true,
     type = "points",
   }: FetchOptions,
-): Promise<z.infer<Z>> {
+): Promise<{
+    data: string;
+    response: Response;
+  }> {
   const url = `${config[`${type}Endpoint`]}${path}`;
 
   const response = await fetch(url.toString(), {
@@ -36,16 +37,38 @@ export async function doFetch<Z extends ZodType>(
     throw new Error(`Failed to fetch ${url.toString()}: ${response.statusText}`);
   }
 
+  return {
+    data: await response.text(),
+    response,
+  };
+}
+
+export async function doFetch<Z extends ZodType>(
+  config: Config,
+  schema: Z,
+  options: FetchOptions,
+): Promise<z.infer<Z>> {
+  const { data } = await doRawFetch(config, options);
+  const isJson = options.isJson ?? true;
+
   if (isJson) {
-    const json = await response.json();
+    const json = JSON.parse(data);
     const result = await schema.safeParseAsync(json);
 
     if (!result.success) {
-      throw new Error(`Failed to parse ${url.toString()}: ${result.error.message}`);
+      throw new Error(`Failed to parse ${options.path}: ${result.error.message}`);
     }
 
     return result.data;
   }
 
-  return response.text();
+  return data;
+}
+
+export function buildQueryString(
+  options: Record<string, string | number | boolean>,
+): string {
+  return Object.entries(options)
+    .map(([key, value]) => `${key}=${value}`)
+    .join("&");
 }

@@ -24,7 +24,7 @@ export function FlexItem({
   asChild,
   className,
   ...props
-}: AsChild<WithChildren<HTMLAttributes<HTMLDivElement>>> & FlexProps & {
+}: AsChild<WithChildren<HTMLAttributes<HTMLDivElement>>> & {
   ref?: Ref<HTMLDivElement>;
 }): ReactElement {
   const Comp = asChild ? Root : "div";

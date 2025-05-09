@@ -1,3 +1,4 @@
+export * from "./earn";
 export * from "./exists";
 export * from "./partnerDeals";
 export * from "./partners";

@@ -2,6 +2,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
+import tsconfigPaths from "rollup-plugin-tsconfig-paths";
 
 const packageJson = require("./package.json");
 
@@ -23,6 +24,7 @@ export default [
     ],
     plugins: [
       resolve(),
+      tsconfigPaths(),
       commonjs(),
       typescript({
         tsconfig: "./tsconfig.json",

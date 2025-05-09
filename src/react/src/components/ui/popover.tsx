@@ -12,6 +12,7 @@ const PopoverAnchor = PopoverPrimitive.Anchor;
 
 function PopoverContent({
   className,
+  style,
   align = "center",
   sideOffset = 4,
   ref,
@@ -19,7 +20,7 @@ function PopoverContent({
 }: ComponentPropsWithoutRef<typeof PopoverPrimitive.Content> & {
   ref?: Ref<ComponentRef<typeof PopoverPrimitive.Content>>;
 }): ReactElement {
-  const { style } = useThemeApply();
+  const { style: themeStyle } = useThemeApply();
 
   return (
     <PopoverPrimitive.Portal>
@@ -31,7 +32,10 @@ function PopoverContent({
           popover,
           className,
         )}
-        style={style}
+        style={{
+          ...themeStyle,
+          ...style,
+        }}
         {...props}
       />
     </PopoverPrimitive.Portal>

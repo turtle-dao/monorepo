@@ -1,4 +1,4 @@
-import { createThemeContract, globalStyle } from "@vanilla-extract/css";
+import { createThemeContract } from "@vanilla-extract/css";
 
 export const themeVars = createThemeContract({
   borderRadius: null,
@@ -16,4 +16,5 @@ export const themeVars = createThemeContract({
   textSecondary: null,
   buttonBgColor: null,
   buttonTextColor: null,
+  errorColor: null,
 });

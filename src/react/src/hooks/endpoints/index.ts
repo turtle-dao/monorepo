@@ -1,3 +1,4 @@
+export * from "./earn";
 export * from "./useExists";
 export * from "./usePartnerDeals";
 export * from "./usePartners";

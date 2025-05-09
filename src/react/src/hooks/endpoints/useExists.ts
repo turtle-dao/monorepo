@@ -26,6 +26,7 @@ export function useExists(
     enabled,
     staleTime: 2 * 60 * 1000,
     refetchInterval: 1 * 60 * 1000,
+    refetchOnWindowFocus: true,
   }, queryClient ?? defaultQueryClient);
 
   return query;
