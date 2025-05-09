@@ -33,7 +33,11 @@ export default [
       babel({
         babelHelpers: "bundled",
         exclude: "node_modules/**",
-        presets: [["@babel/preset-react", { runtime: "automatic" }]],
+        presets: [
+          ["@babel/preset-react", { runtime: "automatic" }],
+          "@babel/preset-typescript",
+        ],
+        plugins: ["@babel/plugin-syntax-flow"],
         extensions,
       }),
       typescript({
