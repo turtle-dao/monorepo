@@ -1,5 +1,16 @@
 # @turtledev/showcase
 
+## 0.3.0
+
+### Minor Changes
+
+- Turtle SDK v1.3
+
+### Patch Changes
+
+- Updated dependencies
+  - @turtledev/react@1.3.0
+
 ## 0.2.0
 
 ### Minor Changes

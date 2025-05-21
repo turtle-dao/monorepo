@@ -10,9 +10,14 @@
     "build": "bun run --cwd src/api build && bun run --cwd src/react build",
     "dev": "bun run --cwd src/api dev & bun run --cwd src/react dev",
     "test": "bun test",
-    "publish-packages": "bun run build && changeset publish",
+    "publish-packages-1": "changeset",
+    "publish-packages-2": "changeset version",
+    "publish-packages-3": "bun run build && changeset publish",
     "preview": "bun run --cwd src/showcase dev",
     "build-preview": "bun run build && bun run --cwd src/showcase build"
+  },
+  "dependencies": {
+    "viem": "^2.30.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.16.0",
@@ -21,8 +26,5 @@
     "eslint": "^9.27.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20"
-  },
-  "dependencies": {
-    "viem": "^2.30.0"
   }
 }
