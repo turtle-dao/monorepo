@@ -12,8 +12,8 @@ const queryClient = new QueryClient();
 
 function App(): React.ReactElement {
   return (
-    <CodeblockProvider>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <CodeblockProvider>
         <WagmiProvider config={config}>
           <RainbowKitProvider theme={darkTheme()}>
             <TurtleProvider>
@@ -21,8 +21,8 @@ function App(): React.ReactElement {
             </TurtleProvider>
           </RainbowKitProvider>
         </WagmiProvider>
-      </QueryClientProvider>
-    </CodeblockProvider>
+      </CodeblockProvider>
+    </QueryClientProvider>
   );
 }
 

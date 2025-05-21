@@ -1,22 +1,22 @@
 import { type QueryClient, useQuery, type UseQueryResult } from "@tanstack/react-query";
-import { type Config, partners, type PartnersResponse } from "@turtledev/api";
+import { type Config, organization, type OrganizationResponse } from "@turtledev/api";
 import { defaultQueryClient } from "../client";
 import { useConfig } from "../useConfig";
 
-export interface UsePartnersOptions {
+export interface UseOrganizationsOptions {
   config?: Config;
   queryClient?: QueryClient;
 }
 
-export function usePartners(
-  { config, queryClient }: UsePartnersOptions = {},
-): UseQueryResult<PartnersResponse | null> {
+export function useOrganizations(
+  { config, queryClient }: UseOrganizationsOptions = {},
+): UseQueryResult<OrganizationResponse | null> {
   const defaultConfig = useConfig();
 
   const query = useQuery({
-    queryKey: ["partners"],
+    queryKey: ["organizations"],
     queryFn: async () => {
-      return await partners(config ?? defaultConfig);
+      return await organization(config ?? defaultConfig);
     },
     staleTime: 2 * 60 * 1000,
     refetchInterval: 1 * 60 * 1000,

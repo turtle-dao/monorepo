@@ -8,7 +8,7 @@ import { EarnPageDeal } from "./deal/deal";
 import * as earnPage from "./index.css";
 import { EarnPageLanding } from "./landing";
 
-export function EarnPage(props: EarnPageProps): ReactElement {
+export function EarnPage<Network extends number>(props: EarnPageProps<Network>): ReactElement {
   const themeApply = useThemeApply();
 
   const { headerLogo, headerText, headerExtra } = props;

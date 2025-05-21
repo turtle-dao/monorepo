@@ -22,10 +22,10 @@ import { Route } from "./route";
 
 export type DealPage = "deposit" | "route";
 
-export function EarnPageDeal({
+export function EarnPageDeal<Network extends number>({
   id,
   ...props
-}: EarnPageProps & { id: string }): ReactElement {
+}: EarnPageProps<Network> & { id: string }): ReactElement {
   const [page, setPageRaw] = useState<"deposit" | "route">("deposit");
   const [route, setRoute] = useState<EarnRouteResponse | null>(null);
   const [selectedVault, setSelectedVault] = useState<earnTyped.DefiToken | null>(null);

@@ -57,6 +57,7 @@ export const emptyLogo = style({
   background: themeVars.bgAccent,
   borderRadius: "99999px",
   marginRight: "0.375rem",
+  overflow: "hidden",
 });
 
 export const spacer = style({

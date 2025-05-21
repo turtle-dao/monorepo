@@ -18,14 +18,15 @@ import { match } from "ts-pattern";
 import * as routeCss from "./route.css";
 import { Substep, SubstepMini } from "./substep";
 
-export function Route({
+export function Route<Network extends number>({
   route,
   sendTransaction,
   setPage,
+  network,
 }: {
   route: EarnRouteResponse;
   setPage: (page: DealPage) => void;
-} & EarnPageProps): ReactElement {
+} & EarnPageProps<Network>): ReactElement {
   const [step, setStep] = useState(0);
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -61,8 +62,8 @@ export function Route({
           from: tx.from as Address,
           to: tx.to as Address,
           data: tx.data as Hex,
-          value: tx.value,
-          chainId: 1,
+          value: BigInt(tx.value),
+          chainId: network,
         });
 
         setStep(step + 1);
@@ -75,7 +76,7 @@ export function Route({
 
       setIsSending(false);
     }];
-  }, [isSending, route, sendTransaction, step]);
+  }, [isSending, network, route.steps, sendTransaction, step]);
 
   const steps = useMemo(() => {
     function mapper(step: earnTyped.RouterStep): {

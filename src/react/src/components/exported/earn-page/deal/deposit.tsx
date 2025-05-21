@@ -12,7 +12,7 @@ import { formatNumber, formatToken } from "@/lib/format";
 import { Fragment, type ReactElement, type ReactNode, useMemo } from "react";
 import * as deposit from "./deposit.css";
 
-export function Deposit({
+export function Deposit<Network extends number>({
   user,
   inputTokenState,
   route: [route, routeError],
@@ -26,7 +26,7 @@ export function Deposit({
   setPage: (page: DealPage) => void;
   balanceTokens: Token[];
   selectedVault: earnTyped.DefiToken | null;
-} & EarnPageProps): ReactElement {
+} & EarnPageProps<Network>): ReactElement {
   const buttonState = useMemo<[boolean, ReactNode, (() => void) | null]>(() => {
     if (!user)
       return [false, "Connect wallet", openConnectionModal ?? null];

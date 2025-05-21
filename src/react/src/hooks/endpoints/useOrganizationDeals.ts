@@ -1,27 +1,27 @@
 import { type QueryClient, useQuery, type UseQueryResult } from "@tanstack/react-query";
-import { type Config, partnersDeals, type PartnersDealsOptions, type PartnersDealsResponse } from "@turtledev/api";
+import { type Config, organizationDeals, type OrganizationDealsOptions, type OrganizationDealsResponse } from "@turtledev/api";
 import { defaultQueryClient } from "../client";
 import { useConfig } from "../useConfig";
 
-export interface UsePartnersDealsOptions {
+export interface UseOrganizationDealsOptions {
   config?: Config;
   queryClient?: QueryClient;
 }
 
-export function usePartnersDeals(
-  options?: PartnersDealsOptions,
-  { config, queryClient }: UsePartnersDealsOptions = {},
-): UseQueryResult<PartnersDealsResponse | null> {
+export function useOrganizationDeals(
+  options?: OrganizationDealsOptions,
+  { config, queryClient }: UseOrganizationDealsOptions = {},
+): UseQueryResult<OrganizationDealsResponse | null> {
   const defaultConfig = useConfig();
   const enabled = options !== undefined;
 
   const query = useQuery({
-    queryKey: ["partnersDeals", options?.partnerIds],
+    queryKey: ["organizationDeals", options?.organizationId],
     queryFn: async () => {
       if (!enabled)
         return null;
 
-      return await partnersDeals(options, config ?? defaultConfig);
+      return await organizationDeals(options, config ?? defaultConfig);
     },
     enabled,
     staleTime: 2 * 60 * 1000,
