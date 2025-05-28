@@ -1,5 +1,11 @@
 # @turtledev/react
 
+## 1.4.1
+
+### Patch Changes
+
+- Minor network fixes
+
 ## 1.4.0
 
 ### Minor Changes

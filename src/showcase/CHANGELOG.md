@@ -1,5 +1,13 @@
 # @turtledev/showcase
 
+## 0.4.1
+
+### Patch Changes
+
+- Minor network fixes
+- Updated dependencies
+  - @turtledev/react@1.4.1
+
 ## 0.4.0
 
 ### Minor Changes
