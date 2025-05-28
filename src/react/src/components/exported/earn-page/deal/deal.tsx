@@ -1,21 +1,26 @@
-import type { Token } from "@/components/ui/token-input";
 import type { EarnRouteOptions, EarnRouteResponse, earnTyped } from "@turtledev/api";
 import type { EarnPageProps } from "../types";
-import { ArrowUpRightIcon } from "@/components/icons/arrow";
+import type { Token } from "@/components/ui/token-input";
+import { type ReactElement, useMemo, useState } from "react";
+import { match } from "ts-pattern";
+import { parseUnits } from "viem";
+import { Link as WouterLink } from "wouter";
+import { ArrowLeftIcon, ArrowUpRightIcon } from "@/components/icons/arrow";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { Flex } from "@/components/ui/flex";
 import { Link } from "@/components/ui/link";
 import { Logo } from "@/components/ui/logo";
+import { Spinner } from "@/components/ui/spinner";
 import { Table } from "@/components/ui/table";
 import { Heading, Text } from "@/components/ui/text";
 import { useTokenState } from "@/components/ui/token-input";
 import { Z } from "@/components/ui/z";
 import { useEarnDeals, useEarnWalletBalances } from "@/hooks";
 import { useEarnRoute } from "@/hooks/endpoints/earn/useRoute";
-import { addressExplorer, getChainById } from "@/lib/chains";
+import { addressExplorer, chainLogo, chainName, getChainById } from "@/lib/chains";
 import { formatAddress, formatNumber } from "@/lib/format";
-import { type ReactElement, useEffect, useMemo, useState } from "react";
-import { match } from "ts-pattern";
-import { parseUnits } from "viem";
+import { rounding } from "@/theme/constants.css";
 import * as deal from "./deal.css";
 import { Deposit } from "./deposit";
 import { Route } from "./route";
@@ -24,6 +29,7 @@ export type DealPage = "deposit" | "route";
 
 export function EarnPageDeal<Network extends number>({
   id,
+  campaignId,
   ...props
 }: EarnPageProps<Network> & { id: string }): ReactElement {
   const [page, setPageRaw] = useState<"deposit" | "route">("deposit");
@@ -31,10 +37,17 @@ export function EarnPageDeal<Network extends number>({
   const [selectedVault, setSelectedVault] = useState<earnTyped.DefiToken | null>(null);
   const inputTokenState = useTokenState();
 
-  const { data: deals } = useEarnDeals();
+  const selectedChain = useMemo(() => {
+    if (!selectedVault)
+      return 1;
+
+    return selectedVault.token.chain;
+  }, [selectedVault]);
+
+  const { data: deals } = useEarnDeals({ campaignId });
   const { data: balances } = useEarnWalletBalances(props.user
     ? {
-        chain: 1,
+        chain: selectedChain,
         user: props.user,
       }
     : undefined);
@@ -50,7 +63,7 @@ export function EarnPageDeal<Network extends number>({
     //   amount = maxAmount;
 
     return {
-      chain: 1,
+      chain: selectedChain,
       user: props.user,
       tokenIn: inputTokenState.selectedToken.address,
       tokenOut: selectedVault.token.address,
@@ -60,9 +73,10 @@ export function EarnPageDeal<Network extends number>({
   }, [
     props.user,
     selectedVault,
-    inputTokenState.isZero,
     inputTokenState.selectedToken,
+    inputTokenState.isZero,
     inputTokenState.realAmount,
+    selectedChain,
   ]));
 
   const balanceTokens = useMemo(() => {
@@ -79,6 +93,46 @@ export function EarnPageDeal<Network extends number>({
       price: token.price ?? undefined,
     }));
   }, [balances]);
+
+  const { data, content } = useMemo(() => {
+    if (!deals) {
+      return {
+        content: (
+          <Flex justify="center" items="center" gap="md" style={{ marginTop: "50px" }}>
+            <Spinner />
+            <Text bold size="xl">Loading deals</Text>
+          </Flex>
+        ),
+        data: undefined,
+      };
+    }
+
+    const metadata = deals.metadata[id.toLowerCase()];
+
+    if (!metadata) {
+      return {
+        content: (
+          <Flex direction="column" items="center" gap="md" style={{ marginTop: "50px" }}>
+            <Text bold size="xl">Deal not found</Text>
+            <Button asChild>
+              <WouterLink to="/">
+                Home
+              </WouterLink>
+            </Button>
+          </Flex>
+        ),
+        data: undefined,
+      };
+    }
+
+    return {
+      content: undefined,
+      data: {
+        metadata,
+        tokens: deals.deals.filter(deal => deal.metadata.id === metadata.id),
+      },
+    };
+  }, [deals, id]);
 
   function setPage(page: DealPage): void {
     match(page)
@@ -98,121 +152,157 @@ export function EarnPageDeal<Network extends number>({
 
   return (
     <Flex>
-      <div className={deal.actionCard}>
-        {page === "deposit" && (
-          <Deposit
-            inputTokenState={inputTokenState}
-            route={[fetchedRoute, routeError]}
-            setPage={setPage}
-            balanceTokens={balanceTokens}
-            selectedVault={selectedVault}
-            {...props}
-          />
-        )}
+      <Flex direction="column">
+        <Flex>
+          <Button color="ghost" size="sm" asChild>
+            <WouterLink to="/">
+              <ArrowLeftIcon inline size="lg" />
+              Back
+            </WouterLink>
+          </Button>
+        </Flex>
 
-        {page === "route" && route && (
-          <Route route={route} setPage={setPage} {...props} />
-        )}
-      </div>
+        <div className={deal.actionCard}>
+          {page === "deposit" && (
+            <Deposit
+              inputTokenState={inputTokenState}
+              route={[fetchedRoute, routeError]}
+              setPage={setPage}
+              balanceTokens={balanceTokens}
+              selectedVault={selectedVault}
+              {...props}
+            />
+          )}
+
+          {page === "route" && route && (
+            <Route route={route} routeChain={selectedChain} setPage={setPage} {...props} />
+          )}
+        </div>
+      </Flex>
 
       <div className={deal.content}>
-        <Z>
-          <Heading level={1}>Euler Vaults</Heading>
-        </Z>
+        {content && <Z>{content}</Z>}
 
-        <Table
-          items={deals?.tokens ?? null}
-          keyFn={item => `${item.token.name}-${item.token.address}`}
-          searchItems={item => [item.token.name, item.token.symbol, item.token.address]}
-          gridClassName={deal.grid}
-          orderBy={(a, b) => b.data.tvl - a.data.tvl}
-          filters={[
-            {
-              name: "Chain",
-              value: item => ({
-                value: getChainById(item.token.chain)?.name ?? "Unknown",
-              }),
-            },
-            {
-              name: "Underlying",
-              value: item => ({
-                value: item.underlying_tokens[0]?.symbol,
-                icon: <>
-                  {item.underlying_tokens[0]?.logos[0]
-                  && <img src={item.underlying_tokens[0].logos[0]} />}
-                </>,
-              }),
-            },
-          ]}
-          render={function DealToken({ item: token }) {
-            return (
-              <div
-                key={id}
-                className={deal.tokenCard({
-                  selected: token.token.address === selectedVault?.token.address,
-                })}
-                onClick={() => setSelectedVault(token)}
-              >
-                <Flex items="center" gap="xl" justify="between">
-                  <Flex direction="column" gap="sm">
-                    <Flex items="center">
-                      {token.underlying_tokens[0]?.logos[0] && (
-                        <Logo src={token.underlying_tokens[0].logos[0]} />
-                      )}
+        { data && (
+          <>
 
-                      <Heading level={3}>
-                        {token.token.name}
-                      </Heading>
-                    </Flex>
+            <Z>
+              <Card className={rounding({ size: "lg" })}>
+                <Flex items="center" gap="md">
+                  {data.metadata.iconUrl && <Logo src={data.metadata.iconUrl} />}
 
-                    {token.underlying_tokens[0] && (
-                      <Flex items="center" gap="sm">
-                        <Text>
-                          Using
-                        </Text>
-                        <Logo src={token.underlying_tokens[0].logos[0]} inline size="sm" />
-                        <Text bold>
-                          {token.underlying_tokens[0].name}
-                        </Text>
-                      </Flex>
-                    )}
-
-                    <Flex items="center">
-                      <Text secondary bold>{token.token.symbol}</Text>
-
-                      <Link
-                        href={addressExplorer(token.token.address, token.token.chain)}
-                        target="_blank"
-                        onClick={e => e.stopPropagation()}
-                      >
-                        {formatAddress(token.token.address)}
-                        <ArrowUpRightIcon inline size="lg" />
-                      </Link>
-                    </Flex>
-                  </Flex>
-
-                  <Flex gap="lg">
-                    <div>
-                      <Text secondary>Vault APY</Text>
-                      <Text bold size="lg">
-                        {formatNumber(token.data.apy * 100, 2, false, false)}
-                        %
-                      </Text>
-                    </div>
-
-                    <div>
-                      <Text secondary>Vault TVL</Text>
-                      <Text bold size="lg">
-                        $
-                        {formatNumber(token.data.tvl, 2, true, false)}
-                      </Text>
-                    </div>
-                  </Flex>
+                  <Heading level={1}>
+                    {data.metadata.name ?? "_"}
+                  </Heading>
                 </Flex>
-              </div>
-            );
-          }}
-        />
+
+                <Text secondary>{data.metadata.description}</Text>
+              </Card>
+            </Z>
+
+            <Table
+              items={data.tokens ?? null}
+              keyFn={item => `${item.token.name}-${item.token.address}`}
+              searchItems={item => [item.token.name, item.token.symbol, item.token.address]}
+              gridClassName={deal.grid}
+              orderBy={(a, b) => b.data.tvl - a.data.tvl}
+              filters={[
+                {
+                  name: "Chain",
+                  value: item => ({
+                    value: chainName(item.token.chain),
+                    icon: <img src={chainLogo(item.token.chain)} />,
+                  }),
+                },
+                {
+                  name: "Underlying",
+                  value: item => ({
+                    value: item.underlying_tokens[0]?.symbol,
+                    icon: <>
+                      {item.underlying_tokens[0]?.logos[0]
+                      && <img src={item.underlying_tokens[0].logos[0]} />}
+                          </>,
+                  }),
+                },
+              ]}
+              render={function DealToken({ item: token }) {
+                return (
+                  <div
+                    key={id}
+                    className={deal.tokenCard({
+                      selected: token.token.address === selectedVault?.token.address,
+                    })}
+                    onClick={() => setSelectedVault(token)}
+                  >
+                    <Flex items="center" gap="xl" justify="between">
+                      <Flex direction="column" gap="sm">
+                        <Flex items="center">
+                          {token.token.logos[0] && (
+                            <Logo src={token.token.logos[0]} />
+                          )}
+
+                          <Heading level={3}>
+                            {token.token.name}
+                          </Heading>
+                        </Flex>
+
+                        {token.underlying_tokens[0] && (
+                          <Flex items="center" gap="sm">
+                            <Text>
+                              Using
+                            </Text>
+                            <Logo src={token.underlying_tokens[0].logos[0]} inline size="sm" />
+                            <Text bold>
+                              {token.underlying_tokens[0].symbol}
+                            </Text>
+                            <Text>
+                              On
+                            </Text>
+                            <Logo src={chainLogo(token.token.chain)} inline size="sm" />
+                            <Text bold>
+                              {chainName(token.token.chain)}
+                            </Text>
+                          </Flex>
+                        )}
+
+                        <Flex items="center">
+                          <Text secondary bold>{token.token.symbol}</Text>
+
+                          <Link
+                            href={addressExplorer(token.token.address, token.token.chain)}
+                            target="_blank"
+                            onClick={e => e.stopPropagation()}
+                          >
+                            {formatAddress(token.token.address)}
+                            <ArrowUpRightIcon inline size="lg" />
+                          </Link>
+                        </Flex>
+                      </Flex>
+
+                      <Flex gap="lg">
+                        <div>
+                          <Text secondary>Vault APY</Text>
+                          <Text bold size="lg">
+                            {formatNumber(token.data.apy * 100, 2, false, false)}
+                            %
+                          </Text>
+                        </div>
+
+                        <div>
+                          <Text secondary>Vault TVL</Text>
+                          <Text bold size="lg">
+                            $
+                            {formatNumber(token.data.tvl, 2, true, false)}
+                          </Text>
+                        </div>
+                      </Flex>
+                    </Flex>
+                  </div>
+                );
+              }}
+            />
+          </>
+        ) }
       </div>
     </Flex>
   );

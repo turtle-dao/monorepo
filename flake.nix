@@ -18,6 +18,7 @@
 
             corepack
             bun
+            pnpm
 
             nodePackages.typescript
             nodePackages.typescript-language-server

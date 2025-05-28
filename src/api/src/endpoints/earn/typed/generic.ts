@@ -55,16 +55,24 @@ export const token = z.object({
   symbol: z.string(),
   logos: z.array(z.string()),
   decimals: z.number(),
-  price: z.number().nullable().optional(),
   chain: z.number(),
+  price: z.number().nullable().optional(),
 });
 
 export type Token = z.infer<typeof token>;
 
+export const defiMetadata = z.object({
+  id: z.string().uuid(),
+  name: z.string(),
+  description: z.string(),
+  iconUrl: z.string(),
+});
+
 export const defiToken = z.object({
+  protocol: z.string(),
   token,
   underlying_tokens: z.array(token),
-  protocol: z.string(),
+  metadata: defiMetadata,
   data: defiData,
 });
 

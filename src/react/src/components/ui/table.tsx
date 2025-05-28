@@ -10,7 +10,7 @@ import { Heading, Text } from "./text";
 
 interface TableFilter<T> {
   name: string;
-  value: (item: T) => TableFilterItem;
+  value: (item: T) => TableFilterItem | TableFilterItem[];
   multiple?: boolean;
 }
 
@@ -53,12 +53,14 @@ export function Table<T>({
       const uniqueValues = {} as Record<string, TableFilterItem>;
 
       for (const item of items) {
-        const value = filter.value(item);
+        const values = filter.value(item);
 
-        if (uniqueValues[value.value] !== undefined)
-          continue;
+        for (const value of Array.isArray(values) ? values : [values]) {
+          if (uniqueValues[value.value] !== undefined)
+            continue;
 
-        uniqueValues[value.value] = value;
+          uniqueValues[value.value] = value;
+        }
       }
 
       const values = Object.values(uniqueValues);
@@ -92,7 +94,17 @@ export function Table<T>({
             if (filter === undefined)
               continue;
 
-            if (filter.value(item).value !== value)
+            const values = filter.value(item);
+            let found = false;
+
+            for (const v of Array.isArray(values) ? values : [values]) {
+              if (v.value === value) {
+                found = true;
+                break;
+              }
+            }
+
+            if (!found)
               return false;
           }
 
@@ -215,11 +227,7 @@ export function Table<T>({
             </div>
           )}
         </div>
-
-        <div className={table.footer}></div>
       </div>
-
-      <div className={table.pad} />
     </>
   );
 }

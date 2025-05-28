@@ -66,9 +66,10 @@ export async function doFetch<Z extends ZodType>(
 }
 
 export function buildQueryString(
-  options: Record<string, string | number | boolean>,
+  options: Record<string, string | number | boolean | undefined>,
 ): string {
   return Object.entries(options)
+    .filter(([, value]) => value !== undefined)
     .map(([key, value]) => `${key}=${value}`)
     .join("&");
 }

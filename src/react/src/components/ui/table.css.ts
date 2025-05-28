@@ -1,25 +1,10 @@
+import { style } from "@vanilla-extract/css";
 import { gap, padding } from "@/theme/constants.css";
 import { themeVars } from "@/theme/theme.css";
-import { style } from "@vanilla-extract/css";
 import { flex } from "./flex.css";
 
 export const card = style([
   flex({ direction: "column", items: "stretch", gap: "none" }),
-  {
-    "position": "relative",
-
-    "::before": {
-      content: "",
-      position: "sticky",
-      top: "0rem",
-      zIndex: 1,
-      left: 0,
-      right: 0,
-      height: "6rem",
-      background: themeVars.bgSecondary,
-      marginTop: "-6rem",
-    },
-  },
 ]);
 
 export const grid = style([
@@ -34,21 +19,20 @@ export const header = style([
   flex({ justify: "between", items: "center", gap: "sm" }),
   padding({ size: "xl" }),
   {
-    position: "sticky",
-    top: "5rem",
-    zIndex: 3,
-
     minHeight: "3rem",
     maxHeight: "3rem",
 
-    background: themeVars.borderColor,
+    background: themeVars.bgPrimary,
+    border: `1px solid ${themeVars.borderColor}`,
+    borderBottom: "none",
+
     borderTopLeftRadius: `calc(${themeVars.borderRadius} * 2)`,
     borderTopRightRadius: `calc(${themeVars.borderRadius} * 2)`,
   },
 ]);
 
 export const search = style({
-  height: "2rem",
+  height: "2.25rem",
 });
 
 export const content = style([
@@ -59,25 +43,16 @@ export const content = style([
     paddingTop: 0,
     position: "relative",
     zIndex: 0,
+    minHeight: "18rem",
 
-    background: themeVars.borderColor,
+    background: themeVars.bgPrimary,
+    border: `1px solid ${themeVars.borderColor}`,
+    borderTop: "none",
+
     borderBottomLeftRadius: `calc(${themeVars.borderRadius} * 2)`,
     borderBottomRightRadius: `calc(${themeVars.borderRadius} * 2)`,
   },
 ]);
-
-export const footer = style([
-  {
-    position: "sticky",
-    top: 0,
-    zIndex: 3,
-    marginTop: "calc(-100vh + 10rem)",
-  },
-]);
-
-export const pad = style({
-  height: "calc(100vh - 9rem)",
-});
 
 export const empty = style({
   display: "flex",

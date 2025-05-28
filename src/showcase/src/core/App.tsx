@@ -1,8 +1,8 @@
-import { CodeblockProvider } from "@/components/ui/codeblock";
 import { darkTheme, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TurtleProvider } from "@turtledev/react";
 import { WagmiProvider } from "wagmi";
+import { CodeblockProvider } from "@/components/ui/codeblock";
 import { config } from "../lib/eth";
 import { Router } from "./router";
 import "@rainbow-me/rainbowkit/styles.css";

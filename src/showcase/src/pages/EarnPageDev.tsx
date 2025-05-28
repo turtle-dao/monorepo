@@ -16,11 +16,11 @@ export function EarnPageDev(): React.ReactElement {
       <EarnPage
         referral="TURTLE"
         user={address}
-        headerLogo={(
-          <TurtleLogo fill="hsl(117, 85%, 69%)" className="w-10 h-10" />
-        )}
-        headerText="Turtle Earn"
-        headerExtra={<ConnectButton />}
+        header={{
+          logo: <TurtleLogo fill="hsl(117, 85%, 69%)" className="w-10 h-10" />,
+          text: "Turtle Earn",
+          extra: <ConnectButton />,
+        }}
         openConnectionModal={openConnectModal ?? (() => {})}
         {...adapter}
       />

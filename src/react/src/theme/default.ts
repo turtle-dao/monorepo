@@ -13,7 +13,7 @@ export const defaultThemeConfig: TurtleThemeConfig = {
   light: {
     bgPrimary: "rgb(245, 245, 245)",
     bgSecondary: "rgba(220, 220, 220)",
-    bgAccent: "rgba(200, 200, 200)",
+    bgAccent: "rgba(215, 215, 215)",
     bgTranslucent: "hsl(0 0% 10% / 0.25)",
     borderColor: "rgb(220, 220, 225)",
     textPrimary: "rgba(10, 10, 10)",

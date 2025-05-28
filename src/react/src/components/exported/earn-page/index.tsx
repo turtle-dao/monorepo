@@ -1,9 +1,9 @@
 import type { ReactElement } from "react";
 import type { EarnPageProps } from "./types";
-import { Flex } from "@/components/ui/flex";
-import { useThemeApply } from "@/theme/apply";
 import { Link, Route, Router } from "wouter";
 import { useHashLocation } from "wouter/use-hash-location";
+import { Flex } from "@/components/ui/flex";
+import { useThemeApply } from "@/theme/apply";
 import { EarnPageDeal } from "./deal/deal";
 import * as earnPage from "./index.css";
 import { EarnPageLanding } from "./landing";
@@ -11,27 +11,31 @@ import { EarnPageLanding } from "./landing";
 export function EarnPage<Network extends number>(props: EarnPageProps<Network>): ReactElement {
   const themeApply = useThemeApply();
 
-  const { headerLogo, headerText, headerExtra } = props;
+  const { header } = props;
 
   return (
     <Router hook={useHashLocation}>
-      <main className={earnPage.main} style={themeApply.style}>
+      <div className={earnPage.main} style={themeApply.style}>
         <div className={earnPage.pageContainer}>
-          <header className={earnPage.header}>
-            <Flex items="center" gap="xs" asChild>
-              <Link to="/">
-                {headerLogo}
+          {header && (
+            <header className={earnPage.header}>
+              <Flex items="center" gap="xs" asChild>
+                <Link to="/">
+                  {header.logo}
 
-                {headerText && (
-                  <div className={earnPage.headerText}>
-                    {headerText}
-                  </div>
-                )}
-              </Link>
-            </Flex>
+                  {header.text && (
+                    <div className={earnPage.headerText}>
+                      {header.text}
+                    </div>
+                  )}
+                </Link>
+              </Flex>
 
-            {headerExtra}
-          </header>
+              {header.extra}
+            </header>
+          )}
+
+          {!header && <div />}
 
           <Route path="/">
             <EarnPageLanding {...props} />
@@ -41,7 +45,7 @@ export function EarnPage<Network extends number>(props: EarnPageProps<Network>):
             {params => <EarnPageDeal {...props} id={params.id} />}
           </Route>
         </div>
-      </main>
+      </div>
     </Router>
   );
 }

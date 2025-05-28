@@ -1,16 +1,16 @@
-import { card } from "@/components/ui/card.css";
-import { flex, flexItem } from "@/components/ui/flex.css";
-import { gap, padding, rounding } from "@/theme/constants.css";
-import { themeVars } from "@/theme/theme.css";
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
+import { card } from "@/components/ui/card.css";
+import { flex, flexItem } from "@/components/ui/flex.css";
+import { rounding } from "@/theme/constants.css";
+import { themeVars } from "@/theme/theme.css";
 
 export const actionCard = style([
   card({}),
   rounding({ size: "xl" }),
   {
+    top: "5rem",
     position: "sticky",
-    top: "6rem",
     minWidth: "350px",
     maxWidth: "350px",
   },
@@ -19,7 +19,6 @@ export const actionCard = style([
 export const content = style([
   flex({ direction: "column", items: "stretch", gap: "md" }),
   flexItem,
-  padding(),
 ]);
 
 export const grid = style([
@@ -30,10 +29,11 @@ export const grid = style([
 
 export const tokenCard = recipe({
   base: [
-    card({ }),
+    card({ variant: "accent" }),
     rounding({ size: "lg" }),
     {
       cursor: "pointer",
+      border: "1px solid transparent",
       transition: "border-color 0.1s ease-in-out",
       selectors: {
         "&:hover": {

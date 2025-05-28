@@ -1,8 +1,8 @@
-import { formatNumber } from "@/lib/format";
 import { NATIVE_ADDRESS } from "@turtledev/api";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { type ReactElement, useMemo, useState } from "react";
 import { formatUnits } from "viem";
+import { formatNumber } from "@/lib/format";
 import { ChevronDownIcon } from "../icons/chevron";
 import { Button } from "./button";
 import { Flex, FlexItem } from "./flex";
@@ -125,6 +125,20 @@ export function TokenInput(
     state.setAmount(amount.toString());
   }
 
+  const processedTokens = useMemo(() =>
+    tokens.map((token) => {
+      const tokenAmount = formatUnits(BigInt(token.balance), token.decimals);
+      const tokenNumber = Number.parseFloat(tokenAmount);
+
+      return {
+        token,
+        tokenAmount,
+        tokenNumber,
+      };
+    })
+      .filter(token => token.tokenNumber > Number.EPSILON)
+      .sort((a, b) => (b.tokenNumber * (b.token.price ?? 0)) - (a.tokenNumber * (a.token.price ?? 0))), [tokens]);
+
   return (
     <div className={tokenInput.card}>
       <Flex items="center">
@@ -164,16 +178,13 @@ export function TokenInput(
 
               <div />
 
-              {tokens.length === 0 && (
+              {processedTokens.length === 0 && (
                 <Text>
                   No tokens found
                 </Text>
               )}
 
-              {tokens.map((token) => {
-                const tokenAmount = formatUnits(BigInt(token.balance), token.decimals);
-                const tokenNumber = Number.parseFloat(tokenAmount);
-
+              {processedTokens.map(({ token, tokenAmount, tokenNumber }) => {
                 return (
                   <Button
                     key={token.address}

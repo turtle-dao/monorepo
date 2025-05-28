@@ -1,6 +1,6 @@
 import type { RecipeVariants } from "@vanilla-extract/recipes";
-import { themeVars } from "@/theme/theme.css";
 import { recipe } from "@vanilla-extract/recipes";
+import { themeVars } from "@/theme/theme.css";
 
 export const card = recipe({
   base: {
@@ -21,6 +21,9 @@ export const card = recipe({
       secondary: {
         background: themeVars.bgAccent,
         border: `1px solid ${themeVars.borderColor}`,
+      },
+      accent: {
+        background: themeVars.bgAccent,
       },
     },
   },

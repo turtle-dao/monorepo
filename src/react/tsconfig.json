@@ -6,7 +6,9 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "outDir": "./types"
+    "resolveJsonModule": true,
+    "outDir": "./types",
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*"]
 }

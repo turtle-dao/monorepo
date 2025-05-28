@@ -1,7 +1,7 @@
+import { style } from "@vanilla-extract/css";
 import { flex } from "@/components/ui/flex.css";
 import { text } from "@/components/ui/text.css";
 import { themeVars } from "@/theme/theme.css";
-import { style } from "@vanilla-extract/css";
 
 export const main = style([
   flex({ justify: "center", items: "stretch" }),
@@ -18,6 +18,7 @@ export const pageContainer = style([
     width: "100%",
     maxWidth: "1200px",
     padding: "0 1rem",
+    marginBottom: "1.5rem",
   },
 ]);
 

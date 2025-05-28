@@ -1,3 +1,12 @@
+import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { defaultThemeConfig, EarnPage, TurtleLogo, TurtleProvider, type TurtleThemeConfig, useWagmiAdapter } from "@turtledev/react";
+import clipboard from "clipboardy";
+import { RefreshCcw } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { type IColor, useColor } from "react-color-palette";
+import { createHighlighter } from "shiki";
+import { useAccount } from "wagmi";
+import Clipboard from "~icons/heroicons/clipboard-20-solid";
 import { useAsync } from "@/components/hooks/use-async";
 import { cn } from "@/components/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -7,13 +16,6 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { defaultThemeConfig, EarnPage, TurtleProvider, type TurtleThemeConfig } from "@turtledev/react";
-import { RefreshCcw } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
-import { type IColor, useColor } from "react-color-palette";
-import { createHighlighter } from "shiki";
-import { useAccount, useSignMessage } from "wagmi";
 
 function SliderControl({
   label,
@@ -315,6 +317,8 @@ function ThemeColorsPanel({
   setButtonBgColor,
   buttonTextColor,
   setButtonTextColor,
+  errorColor,
+  setErrorColor,
 }: {
   themeType: "light" | "dark";
   bgPrimary: string;
@@ -335,6 +339,8 @@ function ThemeColorsPanel({
   setButtonBgColor: (value: string) => void;
   buttonTextColor: string;
   setButtonTextColor: (value: string) => void;
+  errorColor: string;
+  setErrorColor: (value: string) => void;
 }): React.ReactElement {
   const isAnyValueChanged
     = bgPrimary !== defaultThemeConfig[themeType].bgPrimary
@@ -344,7 +350,8 @@ function ThemeColorsPanel({
       || textSecondary !== defaultThemeConfig[themeType].textSecondary
       || borderColor !== defaultThemeConfig[themeType].borderColor
       || buttonBgColor !== defaultThemeConfig[themeType].buttonBgColor
-      || buttonTextColor !== defaultThemeConfig[themeType].buttonTextColor;
+      || buttonTextColor !== defaultThemeConfig[themeType].buttonTextColor
+      || errorColor !== defaultThemeConfig[themeType].errorColor;
 
   const handleResetAll = (): void => {
     setBgPrimary(defaultThemeConfig[themeType].bgPrimary);
@@ -355,6 +362,7 @@ function ThemeColorsPanel({
     setBorderColor(defaultThemeConfig[themeType].borderColor);
     setButtonBgColor(defaultThemeConfig[themeType].buttonBgColor);
     setButtonTextColor(defaultThemeConfig[themeType].buttonTextColor);
+    setErrorColor(defaultThemeConfig[themeType].errorColor);
   };
 
   return (
@@ -426,6 +434,13 @@ function ThemeColorsPanel({
             defaultValue={defaultThemeConfig[themeType].borderColor}
             onChange={setBorderColor}
           />
+
+          <ColorControl
+            label="Error Color"
+            value={errorColor}
+            defaultValue={defaultThemeConfig[themeType].errorColor}
+            onChange={setErrorColor}
+          />
         </div>
       </div>
 
@@ -466,9 +481,9 @@ function ThemePreview({
     await createHighlighter({ themes: ["github-dark", "github-light"], langs: ["tsx"] }),
   );
 
-  const toStringify = useMemo(() => {
+  const { toStringify, code } = useMemo(() => {
     if (!highlighter)
-      return "";
+      return { toStringify: "", code: "" };
 
     const props = {
       enableSearch: `{${enableSearchBar}}`,
@@ -490,10 +505,12 @@ ${propsString}
   />
 </TurtleProvider>`;
 
-    return highlighter.codeToHtml(code, {
+    const toStringify = highlighter.codeToHtml(code, {
       lang: "tsx",
       theme: useLightTheme ? "github-light" : "github-dark",
     });
+
+    return { toStringify, code };
   }, [highlighter, enableSearchBar, disableText, themeConfig, useLightTheme]);
 
   return (
@@ -517,9 +534,19 @@ ${propsString}
             </CardContent>
           </Card>
         </TabsContent>
-        <TabsContent value="code" className="flex-1">
+        <TabsContent value="code" className="flex-1 relative">
+          <Button
+            variant="ghost"
+            className="absolute top-2 right-2"
+            onClick={async () =>
+              await clipboard.write(code)}
+            size="icon"
+          >
+            <Clipboard className="w-4 h-4" />
+          </Button>
+
           {/* eslint-disable-next-line react-dom/no-dangerously-set-innerhtml */}
-          {toStringify && <pre className="p-4 text-xs h-full overflow-auto rounded-xl border bg-zinc-200 dark:bg-zinc-900" dangerouslySetInnerHTML={{ __html: toStringify }} />}
+          {toStringify && <pre className="p-4 h-full overflow-auto rounded-xl border bg-zinc-200 dark:bg-zinc-900" dangerouslySetInnerHTML={{ __html: toStringify }} />}
         </TabsContent>
       </Tabs>
     </div>
@@ -528,8 +555,9 @@ ${propsString}
 
 function InternalEarnPage(): React.ReactElement {
   const { address } = useAccount();
-  const { signMessageAsync } = useSignMessage();
   const { openConnectModal } = useConnectModal();
+
+  const adapter = useWagmiAdapter();
 
   const scale = 0.75;
   const width = (1 / scale) * 100;
@@ -542,10 +570,10 @@ function InternalEarnPage(): React.ReactElement {
     }}
     >
       <EarnPage
-        user={address}
-        signMessage={async message => await signMessageAsync({ message })}
         referral="TURTLE"
-        openConnectionModal={openConnectModal}
+        user={address}
+        openConnectionModal={openConnectModal ?? (() => {})}
+        {...adapter}
       />
     </div>
   );
@@ -573,6 +601,7 @@ export function EarnPageWizard(): React.ReactElement {
   const [lightTextSecondary, setLightTextSecondary] = useState(defaultThemeConfig.light.textSecondary);
   const [lightButtonBgColor, setLightButtonBgColor] = useState(defaultThemeConfig.light.buttonBgColor);
   const [lightButtonTextColor, setLightButtonTextColor] = useState(defaultThemeConfig.light.buttonTextColor);
+  const [lightErrorColor, setLightErrorColor] = useState(defaultThemeConfig.light.errorColor);
 
   const [darkBgPrimary, setDarkBgPrimary] = useState(defaultThemeConfig.dark.bgPrimary);
   const [darkBgSecondary, setDarkBgSecondary] = useState(defaultThemeConfig.dark.bgSecondary);
@@ -583,6 +612,7 @@ export function EarnPageWizard(): React.ReactElement {
   const [darkTextSecondary, setDarkTextSecondary] = useState(defaultThemeConfig.dark.textSecondary);
   const [darkButtonBgColor, setDarkButtonBgColor] = useState(defaultThemeConfig.dark.buttonBgColor);
   const [darkButtonTextColor, setDarkButtonTextColor] = useState(defaultThemeConfig.dark.buttonTextColor);
+  const [darkErrorColor, setDarkErrorColor] = useState(defaultThemeConfig.dark.errorColor);
 
   const themeConfig: TurtleThemeConfig = {
     theme: useLightTheme ? "light" : "dark",
@@ -604,6 +634,7 @@ export function EarnPageWizard(): React.ReactElement {
       textSecondary: lightTextSecondary,
       buttonBgColor: lightButtonBgColor,
       buttonTextColor: lightButtonTextColor,
+      errorColor: lightErrorColor,
     },
     dark: {
       bgPrimary: darkBgPrimary,
@@ -615,6 +646,7 @@ export function EarnPageWizard(): React.ReactElement {
       textSecondary: darkTextSecondary,
       buttonBgColor: darkButtonBgColor,
       buttonTextColor: darkButtonTextColor,
+      errorColor: darkErrorColor,
     },
   };
 
@@ -700,6 +732,8 @@ export function EarnPageWizard(): React.ReactElement {
                 setButtonBgColor={setLightButtonBgColor}
                 buttonTextColor={lightButtonTextColor}
                 setButtonTextColor={setLightButtonTextColor}
+                errorColor={lightErrorColor}
+                setErrorColor={setLightErrorColor}
               />
 
               <ThemeColorsPanel
@@ -722,6 +756,8 @@ export function EarnPageWizard(): React.ReactElement {
                 setButtonBgColor={setDarkButtonBgColor}
                 buttonTextColor={darkButtonTextColor}
                 setButtonTextColor={setDarkButtonTextColor}
+                errorColor={darkErrorColor}
+                setErrorColor={setDarkErrorColor}
               />
             </Tabs>
           </div>

@@ -1,6 +1,9 @@
 import type { Address, Hex } from "viem";
 import type { EarnPageProps } from "../types";
 import type { DealPage } from "./deal";
+import { type EarnRouteResponse, earnTyped } from "@turtledev/api";
+import { Fragment, type ReactElement, type ReactNode, useMemo, useState } from "react";
+import { match } from "ts-pattern";
 import { ArrowUpRightIcon } from "@/components/icons/arrow";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -10,21 +13,21 @@ import { Logo } from "@/components/ui/logo";
 import { Spinner } from "@/components/ui/spinner";
 import { Text } from "@/components/ui/text";
 import { Iterator } from "@/components/utils/iterator";
-import { addressExplorer, txExplorer } from "@/lib/chains";
+import { addressExplorer, txExplorer, txExplorerName } from "@/lib/chains";
 import { formatAddress, formatToken } from "@/lib/format";
-import { type EarnRouteResponse, earnTyped } from "@turtledev/api";
-import { Fragment, type ReactElement, type ReactNode, useMemo, useState } from "react";
-import { match } from "ts-pattern";
 import * as routeCss from "./route.css";
 import { Substep, SubstepMini } from "./substep";
 
 export function Route<Network extends number>({
   route,
+  routeChain,
   sendTransaction,
+  changeNetwork,
   setPage,
   network,
 }: {
   route: EarnRouteResponse;
+  routeChain: number;
   setPage: (page: DealPage) => void;
 } & EarnPageProps<Network>): ReactElement {
   const [step, setStep] = useState(0);
@@ -37,13 +40,27 @@ export function Route<Network extends number>({
       return [false, "Done", null];
 
     if (isSending) {
-      return [false, <Fragment key="transacting">
-        <Spinner />
-        Transacting
-      </Fragment>, null];
+      return [
+        false,
+        <Fragment key="transacting">
+          <Spinner />
+          Transacting
+        </Fragment>,
+        null,
+      ];
     }
 
-    const stepAction = match(route.steps[step])
+    if (network !== routeChain) {
+      return [
+        false,
+        "Switch network",
+        async () => await changeNetwork(routeChain as Network),
+      ];
+    }
+
+    const currentStep = route.steps[step];
+
+    const stepAction = match(currentStep)
       .with({ kind: "approve" }, ({ token }) => `Approve ${token.symbol}`)
       .with({ kind: "enso" }, () => "Execute")
       .exhaustive();
@@ -56,14 +73,14 @@ export function Route<Network extends number>({
       setIsSending(true);
 
       try {
-        const tx = route.steps[step].tx;
+        const tx = currentStep.tx;
 
         const hash = await sendTransaction({
           from: tx.from as Address,
           to: tx.to as Address,
           data: tx.data as Hex,
           value: BigInt(tx.value),
-          chainId: network,
+          chainId: routeChain as Network,
         });
 
         setStep(step + 1);
@@ -76,7 +93,15 @@ export function Route<Network extends number>({
 
       setIsSending(false);
     }];
-  }, [isSending, network, route.steps, sendTransaction, step]);
+  }, [
+    step,
+    route.steps,
+    isSending,
+    network,
+    routeChain,
+    changeNetwork,
+    sendTransaction,
+  ]);
 
   const steps = useMemo(() => {
     function mapper(step: earnTyped.RouterStep): {
@@ -187,7 +212,7 @@ export function Route<Network extends number>({
           </Text>
 
           <Text size="sm" bold>
-            <Link href={txExplorer(txHash ?? "-", 1)} target="_blank">
+            <Link href={txExplorer(txHash ?? "-", routeChain)} target="_blank">
               {(txHash && formatAddress(txHash)) || "-"}
             </Link>
           </Text>
@@ -208,8 +233,10 @@ export function Route<Network extends number>({
             flex
             asChild
           >
-            <Link color="button" href={txExplorer(txHash ?? "-", 1)} target="_blank">
-              On Etherscan
+            <Link color="button" href={txExplorer(txHash ?? "-", routeChain)} target="_blank">
+              On
+              {" "}
+              {txExplorerName(routeChain)}
               {" "}
               <ArrowUpRightIcon size="lg" />
             </Link>
@@ -253,7 +280,7 @@ export function Route<Network extends number>({
           </Text>
 
           <Text size="sm" bold>
-            <Link href={addressExplorer(route.steps[step].tx.to, 1)} target="_blank">
+            <Link href={addressExplorer(route.steps[step].tx.to, routeChain)} target="_blank">
               {formatAddress(route.steps[step].tx.to)}
             </Link>
           </Text>
