@@ -1,5 +1,11 @@
 # @turtledev/api
 
+## 1.4.0
+
+### Minor Changes
+
+- Campaign support
+
 ## 1.3.0
 
 ### Minor Changes

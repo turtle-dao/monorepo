@@ -1,5 +1,16 @@
 # @turtledev/react
 
+## 1.4.0
+
+### Minor Changes
+
+- Campaign support
+
+### Patch Changes
+
+- Updated dependencies
+  - @turtledev/api@1.4.0
+
 ## 1.3.0
 
 ### Minor Changes

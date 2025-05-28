@@ -1,5 +1,5 @@
 import * as rawChains from "viem/chains";
-import chainlist from "./chainlist.json";
+import * as chainlist from "./chainlist.json";
 
 interface ChainlistItem {
   name: string;

@@ -1,5 +1,16 @@
 # @turtledev/showcase
 
+## 0.4.0
+
+### Minor Changes
+
+- Campaign support
+
+### Patch Changes
+
+- Updated dependencies
+  - @turtledev/react@1.4.0
+
 ## 0.3.0
 
 ### Minor Changes
