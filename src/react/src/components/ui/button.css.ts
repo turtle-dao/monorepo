@@ -1,5 +1,5 @@
-import { themeVars } from "@/theme/theme.css";
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
+import { themeVars } from "@/theme/theme.css";
 import { flex } from "./flex.css";
 
 export const button = recipe({

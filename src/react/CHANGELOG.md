@@ -1,5 +1,13 @@
 # @turtledev/react
 
+## 1.4.2
+
+### Patch Changes
+
+- Fixes to themes & route
+- Updated dependencies
+  - @turtledev/api@1.4.1
+
 ## 1.4.1
 
 ### Patch Changes

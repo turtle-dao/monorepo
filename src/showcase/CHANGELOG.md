@@ -1,5 +1,13 @@
 # @turtledev/showcase
 
+## 0.4.2
+
+### Patch Changes
+
+- Fixes to themes & route
+- Updated dependencies
+  - @turtledev/react@1.4.2
+
 ## 0.4.1
 
 ### Patch Changes

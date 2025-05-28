@@ -29,7 +29,6 @@ export type DealPage = "deposit" | "route";
 
 export function EarnPageDeal<Network extends number>({
   id,
-  campaignId,
   ...props
 }: EarnPageProps<Network> & { id: string }): ReactElement {
   const [page, setPageRaw] = useState<"deposit" | "route">("deposit");
@@ -44,7 +43,7 @@ export function EarnPageDeal<Network extends number>({
     return selectedVault.token.chain;
   }, [selectedVault]);
 
-  const { data: deals } = useEarnDeals({ campaignId });
+  const { data: deals } = useEarnDeals({ campaignId: props.campaignId });
   const { data: balances } = useEarnWalletBalances(props.user
     ? {
         chain: selectedChain,
@@ -69,6 +68,8 @@ export function EarnPageDeal<Network extends number>({
       tokenOut: selectedVault.token.address,
       amount: amount.toString(),
       slippage: 0.02,
+      referral: props.referral,
+      campaignId: props.campaignId,
     } as EarnRouteOptions;
   }, [
     props.user,
@@ -77,6 +78,8 @@ export function EarnPageDeal<Network extends number>({
     inputTokenState.isZero,
     inputTokenState.realAmount,
     selectedChain,
+    props.referral,
+    props.campaignId,
   ]));
 
   const balanceTokens = useMemo(() => {
@@ -221,7 +224,7 @@ export function EarnPageDeal<Network extends number>({
                     icon: <>
                       {item.underlying_tokens[0]?.logos[0]
                       && <img src={item.underlying_tokens[0].logos[0]} />}
-                          </>,
+                    </>,
                   }),
                 },
               ]}

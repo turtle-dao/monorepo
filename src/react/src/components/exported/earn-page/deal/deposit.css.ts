@@ -1,8 +1,8 @@
+import { style } from "@vanilla-extract/css";
 import { card } from "@/components/ui/card.css";
 import { flex } from "@/components/ui/flex.css";
 import { rounding } from "@/theme/constants.css";
 import { themeVars } from "@/theme/theme.css";
-import { style } from "@vanilla-extract/css";
 
 export const flowArrowContainer = style([
   flex({ justify: "center", items: "center" }),
@@ -22,6 +22,8 @@ export const flowArrow = style([
     zIndex: 1,
 
     background: themeVars.bgAccent,
+    border: `1px solid ${themeVars.bgPrimary}`,
+    color: themeVars.textPrimary,
   },
 ]);
 

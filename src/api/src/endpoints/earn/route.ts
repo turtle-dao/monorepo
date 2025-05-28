@@ -1,7 +1,7 @@
 import type { Config } from "@/config";
+import { z } from "zod";
 import { buildQueryString } from "@/fetch";
 import { fetchSigned } from "@/signed";
-import { z } from "zod";
 import { routerStep } from "./typed/routerSteps";
 
 export interface EarnRouteOptions {
@@ -11,6 +11,8 @@ export interface EarnRouteOptions {
   tokenIn: string;
   tokenOut: string;
   amount: string;
+  referral: string;
+  campaignId?: string;
 }
 
 const earnRouteSchema = z.object({
@@ -33,6 +35,8 @@ export async function earnRoute(
       token_in: options.tokenIn,
       token_out: options.tokenOut,
       amount: options.amount,
+      referral: options.referral,
+      campaign_id: options.campaignId,
     })}`,
     type: "earn",
   });
