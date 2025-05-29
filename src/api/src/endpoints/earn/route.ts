@@ -12,7 +12,7 @@ export interface EarnRouteOptions {
   tokenOut: string;
   amount: string;
   referral: string;
-  campaignId?: string;
+  id?: string;
 }
 
 const earnRouteSchema = z.object({
@@ -36,7 +36,7 @@ export async function earnRoute(
       token_out: options.tokenOut,
       amount: options.amount,
       referral: options.referral,
-      campaign_id: options.campaignId,
+      id: options.id,
     })}`,
     type: "earn",
   });

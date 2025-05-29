@@ -69,7 +69,7 @@ export function EarnPageDeal<Network extends number>({
       amount: amount.toString(),
       slippage: 0.02,
       referral: props.referral,
-      campaignId: props.campaignId,
+      id: selectedVault.metadata.id,
     } as EarnRouteOptions;
   }, [
     props.user,
@@ -79,7 +79,6 @@ export function EarnPageDeal<Network extends number>({
     inputTokenState.realAmount,
     selectedChain,
     props.referral,
-    props.campaignId,
   ]));
 
   const balanceTokens = useMemo(() => {

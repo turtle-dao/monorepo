@@ -1,5 +1,13 @@
 # @turtledev/showcase
 
+## 0.4.3
+
+### Patch Changes
+
+- Route ID instead of Campaign ID
+- Updated dependencies
+  - @turtledev/react@1.4.3
+
 ## 0.4.2
 
 ### Patch Changes

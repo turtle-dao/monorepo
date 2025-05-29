@@ -25,7 +25,7 @@ export function EarnPageKatana(): React.ReactElement {
     >
       <EarnPage
         referral="TURTLE"
-        campaignId="aaf4438a-a721-4323-9ec2-f6f174d73027"
+        campaignId="2c86d3a1-cfe8-486d-915d-1b9ff5e924e9"
         user={address}
         header={{
           logo: (
