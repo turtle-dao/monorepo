@@ -1,5 +1,11 @@
 # @turtledev/react
 
+## 1.4.4
+
+### Patch Changes
+
+- Removed referral from signup of Earn Page
+
 ## 1.4.3
 
 ### Patch Changes

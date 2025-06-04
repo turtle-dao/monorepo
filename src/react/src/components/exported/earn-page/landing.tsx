@@ -7,7 +7,6 @@ import { Flex, FlexItem } from "@/components/ui/flex";
 import { Logo } from "@/components/ui/logo";
 import { Table } from "@/components/ui/table";
 import { Heading, Text } from "@/components/ui/text";
-import { Z } from "@/components/ui/z";
 import { useEarnDeals, useExists, usePrepareSignup, useSignup } from "@/hooks";
 import { chainLogo, chainName } from "@/lib/chains";
 import { formatNumber } from "@/lib/format";
@@ -16,7 +15,6 @@ import * as earnPageLanding from "./landing.css";
 
 export function EarnPageLanding<Network extends number>({
   user,
-  referral,
   campaignId,
   network,
   openConnectionModal,
@@ -43,7 +41,7 @@ export function EarnPageLanding<Network extends number>({
     ? {
         user,
         signupToken: prepareData.signup_token,
-        referral,
+        referral: undefined,
         network: network.toString(),
       }
     : undefined);
