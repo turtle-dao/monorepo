@@ -9,13 +9,13 @@
   "scripts": {
     "build": "bun run --cwd src/api build && bun run --cwd src/react build",
     "dev": "bun run --cwd src/api dev & bun run --cwd src/react dev",
+    "widget": "bun run --cwd src/widget dev",
     "test": "bun test",
     "publish-packages-1": "changeset",
     "publish-packages-2": "changeset version",
     "publish-packages-3": "bun run build && changeset publish",
     "preview": "bun run --cwd src/showcase dev",
-    "build-preview": "bun run build && bun run --cwd src/showcase build",
-    "widget": "bun run --cwd src/widget dev"
+    "build-preview": "bun run build && bun run --cwd src/showcase build"
   },
   "dependencies": {
     "viem": "^2.30.0"
