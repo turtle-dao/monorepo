@@ -1,9 +1,6 @@
 name = "turtle-showcase"
 compatibility_date = "2025-06-09"
 
-[build]
-command = "bun i && build-preview"
-
 [assets]
 directory = "./src/showcase/dist/"
 not_found_handling = "single-page-application"
