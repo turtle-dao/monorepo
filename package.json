@@ -14,7 +14,8 @@
     "publish-packages-2": "changeset version",
     "publish-packages-3": "bun run build && changeset publish",
     "preview": "bun run --cwd src/showcase dev",
-    "build-preview": "bun run build && bun run --cwd src/showcase build"
+    "build-preview": "bun run build && bun run --cwd src/showcase build",
+    "widget": "bun run --cwd src/widget dev"
   },
   "dependencies": {
     "viem": "^2.30.0"
