@@ -9,6 +9,7 @@
   "scripts": {
     "build": "bun run --cwd src/api build && bun run --cwd src/react build",
     "dev": "bun run --cwd src/api dev & bun run --cwd src/react dev",
+    "widget": "bun run --cwd src/widget dev",
     "test": "bun test",
     "publish-packages-1": "changeset",
     "publish-packages-2": "changeset version",

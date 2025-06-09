@@ -1,0 +1,187 @@
+@import 'tailwindcss';
+
+@layer utilities {
+  /* Base gradient classes */
+  .gradient-border {
+    @apply relative border border-white/5;
+    
+    &::before {
+      content: '';
+      @apply absolute inset-0 border border-transparent pointer-events-none;
+      -webkit-mask:
+          linear-gradient(#fff 0 0) padding-box,
+          linear-gradient(#fff 0 0) border-box;
+      -webkit-mask-composite: destination-out;
+      mask:
+          linear-gradient(#fff 0 0) padding-box,
+          linear-gradient(#fff 0 0) border-box;
+      mask-composite: exclude;
+    }
+  }
+  
+  /* White gradient variant */
+  .gradient-border-white::before {
+    background: linear-gradient(175deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0) 41%,
+    rgba(255, 255, 255, 0) 57%,
+    rgba(255, 255, 255, 0.1) 100%
+    ) border-box;
+  }
+  
+  /* Green gradient variants */
+  .gradient-border-green-vertical::before {
+    inset: -1px;
+    background: linear-gradient(to bottom,
+    rgba(115, 243, 108, 1) 0%,
+    rgba(115, 243, 108, 0) 100%
+    ) border-box;
+  }
+  
+  .gradient-border-green-diagonal::before {
+    background: linear-gradient(175deg,
+    rgba(115, 243, 108, 0.6) 0%,
+    rgba(115, 243, 108, 0) 41%,
+    rgba(115, 243, 108, 0) 57%,
+    rgba(115, 243, 108, 0.2) 100%
+    ) border-box;
+  }
+  
+  /* Border radius variants */
+  .gradient-radius-full {
+    @apply rounded-[100px];
+    &::before {
+      @apply rounded-[100px];
+    }
+  }
+  
+  .gradient-radius-60 {
+    @apply rounded-[60px];
+    &::before {
+      @apply rounded-[60px];
+    }
+  }
+  
+  .gradient-radius-40 {
+    @apply rounded-[40px];
+    &::before {
+      @apply rounded-[40px];
+    }
+  }
+  
+  .gradient-radius-30 {
+    @apply rounded-[30px];
+    &::before {
+      @apply rounded-[30px];
+    }
+  }
+  
+  .gradient-radius-20 {
+    @apply rounded-[20px];
+    &::before {
+      @apply rounded-[20px];
+    }
+  }
+  
+  /* Responsive variants */
+  .gradient-sm-hidden {
+    @media (max-width: 640px) {
+      border: none;
+      &::before {
+        display: none;
+      }
+    }
+  }
+  
+  .gradient-md-hidden {
+    @media (max-width: 768px) {
+      border: none;
+      &::before {
+        display: none;
+      }
+    }
+  }
+  
+  .gradient-sm-visible {
+    @media (min-width: 640px) {
+      border: none;
+      &::before {
+        display: none;
+      }
+    }
+  }
+  
+  .gradient-md-visible {
+    @media (min-width: 768px) {
+      border: none;
+      &::before {
+        display: none;
+      }
+    }
+  }
+  
+  .gradient-lg-visible {
+    @media (min-width: 1024px) {
+      border: none;
+      &::before {
+        display: none;
+      }
+    }
+  }
+  
+  /* Hover support */
+  .hover-gradient-border:hover {
+    /*@apply gradient-border;*/
+  }
+  
+  .hover-gradient-border-white:hover::before {
+    content: '';
+    background: linear-gradient(175deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0) 41%,
+    rgba(255, 255, 255, 0) 57%,
+    rgba(255, 255, 255, 0.1) 100%
+    ) border-box;
+  }
+  
+  .hover-gradient-border-green-diagonal:hover::before {
+    content: '';
+    background: linear-gradient(175deg,
+    rgba(115, 243, 108, 0.6) 0%,
+    rgba(115, 243, 108, 0) 41%,
+    rgba(115, 243, 108, 0) 57%,
+    rgba(115, 243, 108, 0.2) 100%
+    ) border-box;
+  }
+  
+  .hover-gradient-border-green-vertical:hover::before {
+    content: '';
+    inset: -1px;
+    background: linear-gradient(to bottom,
+    rgba(115, 243, 108, 1) 0%,
+    rgba(115, 243, 108, 0) 100%
+    ) border-box;
+  }
+  
+  /* Border radius on hover */
+  .hover-gradient-radius-full:hover {
+    @apply rounded-[100px];
+    &::before {
+      @apply rounded-[100px];
+    }
+  }
+  
+  .hover-gradient-radius-20:hover {
+    @apply rounded-[20px];
+    &::before {
+      @apply rounded-[20px];
+    }
+  }
+  
+  .hover-gradient-radius-30:hover {
+    @apply rounded-[30px];
+    &::before {
+      @apply rounded-[30px];
+    }
+  }
+}
