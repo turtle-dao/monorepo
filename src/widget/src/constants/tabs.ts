@@ -1,4 +1,4 @@
-export const TAB_TURTLE_EARN = "earn";
+export const TAB_TURTLE_EARN = "swap";
 export const TAB_YOUR_POSITIONS = "positions";
 
 export const tabButtons = [
