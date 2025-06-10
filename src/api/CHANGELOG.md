@@ -1,5 +1,23 @@
 # @turtledev/api
 
+## 1.4.5
+
+### Patch Changes
+
+- Fixed bundler caused issues with tokenlist
+
+## 1.4.4
+
+### Patch Changes
+
+- Removed custom export completely to simplify support
+
+## 1.4.3
+
+### Patch Changes
+
+- Added `src` as an included package
+
 ## 1.4.2
 
 ### Patch Changes
