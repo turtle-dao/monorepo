@@ -4,9 +4,10 @@ import TurtleLogo from "@/assets/turtle-club-logo.svg";
 import { MenuBar } from "@/components";
 import { TAB_TURTLE_EARN, TAB_YOUR_POSITIONS, tabButtons } from "@/constants";
 import { cn } from "@/utils";
+import { Swap } from "./components/swap";
 
 function App(): JSX.Element {
-  const [tab, setTab] = useState<TabType>("positions");
+  const [tab, setTab] = useState<TabType>("swap");
 
   return (
     <div id="turtle-widget" className="widget" style={{ height: "100vh", width: "100vw" }}>
@@ -22,7 +23,10 @@ function App(): JSX.Element {
               items={[...tabButtons]}
               className="hidden w-full bg-ninja-black sm:inline-flex"
             />
-            {tab === TAB_TURTLE_EARN && <div>EARN</div>}
+            <div className="text-center text-sm text-wise-white/50">
+              Deposit into turtle campaigns and deals to earn rewards
+            </div>
+            {tab === TAB_TURTLE_EARN && <Swap />}
             {tab === TAB_YOUR_POSITIONS && <div>Positions</div>}
           </div>
         </div>
