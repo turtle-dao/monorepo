@@ -49,9 +49,9 @@
   
   /* Border radius variants */
   .gradient-radius-full {
-    @apply rounded-[100px];
+    @apply rounded-full;
     &::before {
-      @apply rounded-[100px];
+      @apply rounded-full;
     }
   }
   
@@ -80,6 +80,48 @@
     @apply rounded-[20px];
     &::before {
       @apply rounded-[20px];
+    }
+  }
+  
+  .gradient-radius-sm {
+    @apply rounded-sm;
+    &::before {
+      @apply rounded-sm;
+    }
+  }
+
+  .gradient-radius-md {
+    @apply rounded-md;
+    &::before {
+      @apply rounded-md;
+    }
+  }
+
+  .gradient-radius-lg {
+    @apply rounded-lg;
+    &::before {
+      @apply rounded-lg;
+    }
+  }
+
+  .gradient-radius-xl {
+    @apply rounded-xl;
+    &::before {
+      @apply rounded-xl;
+    }
+  }
+
+  .gradient-radius-2xl {
+    @apply rounded-2xl;
+    &::before {
+      @apply rounded-2xl;
+    }
+  }
+
+  .gradient-radius-3xl {
+    @apply rounded-3xl;
+    &::before {
+      @apply rounded-3xl;
     }
   }
   
