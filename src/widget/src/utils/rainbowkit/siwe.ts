@@ -55,6 +55,7 @@ export const authenticationAdapter = createAuthenticationAdapter({
   signOut: async () => {},
 });
 
+// TODO: Here we should check if the user already have a signature stored in our db.
 export function useAuthenticationStatus(): AuthenticationStatus {
   const { address } = useAccount();
   const { jwts } = authenticationStore();
