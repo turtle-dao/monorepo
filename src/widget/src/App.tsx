@@ -1,10 +1,9 @@
 import type { TabType } from "@/constants";
 import { type JSX, useState } from "react";
 import TurtleLogo from "@/assets/turtle-club-logo.svg";
-import { MenuBar } from "@/components";
+import { ChainSelector, MenuBar, Swap } from "@/components";
 import { TAB_TURTLE_EARN, TAB_YOUR_POSITIONS, tabButtons } from "@/constants";
 import { cn } from "@/utils";
-import { Swap } from "./components/swap";
 
 function App(): JSX.Element {
   const [tab, setTab] = useState<TabType>("swap");
@@ -26,6 +25,7 @@ function App(): JSX.Element {
             <div className="text-center text-sm text-wise-white/50">
               Deposit into turtle campaigns and deals to earn rewards
             </div>
+            <ChainSelector />
             {tab === TAB_TURTLE_EARN && <Swap />}
             {tab === TAB_YOUR_POSITIONS && <div>Positions</div>}
           </div>

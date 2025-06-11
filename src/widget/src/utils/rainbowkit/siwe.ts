@@ -59,8 +59,6 @@ export function useAuthenticationStatus(): AuthenticationStatus {
   const { address } = useAccount();
   const { jwts } = authenticationStore();
 
-  console.warn(jwts);
-
   if (!address)
     return "loading";
 
