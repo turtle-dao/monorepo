@@ -1,7 +1,7 @@
-import { TurtleLogo } from "@turtledev/react";
 import { type JSX, useState } from "react";
 import { ChainSelector, Swap } from "./components";
 import { MenuBar } from "./components/MenuBar";
+import { TurtleLogo } from "./components/ui/turtle-logo";
 import { WidgetContainer } from "./components/ui/widget-container";
 import { WidgetRoot } from "./components/widget/widget-root";
 import { TAB_TURTLE_EARN, TAB_YOUR_POSITIONS, tabButtons, type TabType } from "./constants";
@@ -20,8 +20,9 @@ function App(): JSX.Element {
           shadow="large"
           className="flex w-full flex-col gap-5"
         >
-          <div className="flex justify-center py-2.5">
-            <TurtleLogo className="w-[135px]" />
+          <div className="flex justify-center items-center text-4xl font-bold font-sans py-2.5 text-neon-green">
+            <TurtleLogo className="w-20 h-20" />
+            <span className="ml-2">Turtle Club</span>
           </div>
           <MenuBar
             selectedValue={tab}
