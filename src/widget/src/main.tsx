@@ -1,14 +1,16 @@
-import { darkTheme, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { QueryClient } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { WagmiProvider } from "wagmi";
+import { EthProvider } from "@/utils/rainbowkit/eth-provider";
 import App from "./App";
 import { config } from "./config/wagmi";
 import { createIDBPersister } from "./utils/tanstack/persister";
-import "./styles/index.css";
+
 import "./styles/gradients.css";
+import "./styles/index.css";
+import "@rainbow-me/rainbowkit/styles.css";
 
 // Configure QueryClient with performance optimizations
 const queryClient = new QueryClient({
@@ -24,21 +26,25 @@ const queryClient = new QueryClient({
   },
 });
 
-// Create persister with performance optimizations
+// Create root element
+const rootElement = document.getElementById("root");
+if (!rootElement)
+  throw new Error("Root element not found");
+
+// Create root
+const root = createRoot(rootElement);
+
 const persister = createIDBPersister("turtle");
 
-createRoot(document.getElementById("root")!).render(
+// Render app
+root.render(
   <StrictMode>
     <PersistQueryClientProvider client={queryClient} persistOptions={{ persister }}>
       <WagmiProvider config={config}>
-        <RainbowKitProvider
-          theme={darkTheme({
-            ...darkTheme.accentColors.green,
-          })}
-        >
-          {/* TODO: Add SIWE support with new endpoints */}
+        <EthProvider>
+
           <App />
-        </RainbowKitProvider>
+        </EthProvider>
       </WagmiProvider>
     </PersistQueryClientProvider>
   </StrictMode>,

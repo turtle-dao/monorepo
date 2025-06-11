@@ -1,8 +1,8 @@
 {
   "name": "@turtledev/widget",
-  "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "NODE_ENV=production vite build --mode production && vite run build:css",
@@ -20,8 +20,8 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.513.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
     "tailwind-merge": "^3.3.0",
     "viem": "2.x",
     "wagmi": "^2.15.6"
