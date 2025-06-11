@@ -1,6 +1,6 @@
 import type { JSX } from "react";
 import { useCallback, useEffect, useRef } from "react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/shadcn/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/shadcn/select";
 import { cn } from "@/utils";
 
 interface PartnerTableFilterProps<T extends string> {
