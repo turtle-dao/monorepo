@@ -12,12 +12,12 @@ function App(): JSX.Element {
   const [tab, setTab] = useState<TabType>("swap");
 
   return (
-    <div className={cn("relative z-[1] flex w-full items-center justify-center size-full")}>
+    <div className={cn("relative z-[1] flex w-full items-center justify-center items-center size-full min-h-screen")}>
       <WidgetRoot config={defaultWidgetStyleConfig}>
         <WidgetContainer
           variant="dark"
           gradient="white"
-          shadow="large"
+          shadow="xlarge"
           className="flex w-full flex-col gap-5"
         >
           <div className="flex justify-center items-center text-4xl font-bold font-sans py-2.5 text-neon-green">
