@@ -8,11 +8,9 @@ import { cn } from "@/lib/utils";
 const containerVariants = cva("", {
   variants: {
     variant: {
-      default: "bg-wise-gray",
-      dark: "bg-ninja-black",
-      card: "bg-wise-gray",
-      input: "bg-surface-input",
-      transparent: "bg-surface-transparent",
+      default: "dark:bg-wise-gray bg-gray-500",
+      dark: "bg-white/90 dark:bg-ninja-black",
+      card: "dark:bg-wise-gray bg-gray-500",
     },
     gradient: {
       none: "",
@@ -40,6 +38,7 @@ const containerVariants = cva("", {
       small: "p-3",
       default: "p-4",
       large: "p-6",
+      xlarge: "p-8",
     },
     width: {
       default: "w-auto",
@@ -78,8 +77,9 @@ const containerVariants = cva("", {
 
 export interface WidgetContainerProps
   extends React.HTMLAttributes<HTMLDivElement>,
-  Omit<VariantProps<typeof containerVariants>, "gradientRadius" | "rounded" | "padding"> {
+  Omit<VariantProps<typeof containerVariants>, "gradientRadius" | "rounded" | "padding" | "gradient"> {
   asChild?: boolean;
+  gradient: boolean;
 }
 
 export function WidgetContainer({
@@ -90,17 +90,18 @@ export function WidgetContainer({
   shadow,
   ...props
 }: WidgetContainerProps): JSX.Element {
-  const { rounding, padding, widgetWidth } = useWidgetStyles();
+  const { theme, rounding, padding, widgetWidth } = useWidgetStyles();
 
   // If there's a gradient, the gradient radius should match the container's radius
-  const effectiveGradientRadius = gradient !== "none" ? rounding : "none";
+  const effectiveGradientRadius = gradient ? rounding : "none";
 
+  const effectiveGradient = gradient ? (theme === "dark" ? "white" : "white") : "none";
   return (
     <div
       className={cn(
         containerVariants({
           variant,
-          gradient,
+          gradient: effectiveGradient,
           border,
           padding,
           shadow,

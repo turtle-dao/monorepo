@@ -55,4 +55,61 @@ export const defaultWidgetStyleConfig: WidgetStyleConfig = {
   styles: defaultStyles,
 };
 
+export const config2: WidgetStyleConfig = {
+  logo: {
+    light_url: "",
+    dark_url: "",
+  },
+  theme: "dark",
+  rounding: "lg",
+  widget_style: "default",
+  widget_width: "full",
+  padding: "xlarge",
+  navigation: "segments",
+  font_primary: "Inter",
+  font_secondary: "Inter",
+  show_navigation_icons: true,
+  show_wallet: true,
+  multi_chain: false,
+  styles: defaultStyles,
+};
+
+export const config3: WidgetStyleConfig = {
+  logo: {
+    light_url: "",
+    dark_url: "",
+  },
+  theme: "light",
+  rounding: "md",
+  widget_style: "default",
+  widget_width: "full",
+  padding: "large",
+  navigation: "segments",
+  font_primary: "Inter",
+  font_secondary: "Inter",
+  show_navigation_icons: true,
+  show_wallet: true,
+  multi_chain: false,
+  styles: defaultStyles,
+};
+
+export const config4: WidgetStyleConfig = {
+  logo: {
+    light_url: "",
+    dark_url: "",
+  },
+  theme: "dark",
+  rounding: "lg",
+  widget_style: "default",
+  widget_width: "default",
+  padding: "large",
+  navigation: "segments",
+  font_primary: "Inter",
+  font_secondary: "Inter",
+  show_navigation_icons: true,
+  show_wallet: true,
+  multi_chain: false,
+  styles: defaultStyles,
+};
+
 export const widgetStyleConfigAtom = atom<WidgetStyleConfig>(defaultWidgetStyleConfig);

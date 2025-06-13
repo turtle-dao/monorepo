@@ -28,7 +28,16 @@
     rgba(255, 255, 255, 0.1) 100%
     ) border-box;
   }
-  
+
+  .gradient-border-black::before {
+    background: linear-gradient(175deg,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0) 41%,
+    rgba(0, 0, 0, 0) 57%,
+    rgba(0, 0, 0, 0.1) 100%
+    ) border-box;
+  }
+
   /* Green gradient variants */
   .gradient-border-green-vertical::before {
     inset: -1px;
@@ -82,7 +91,7 @@
       @apply rounded-[20px];
     }
   }
-  
+
   .gradient-radius-sm {
     @apply rounded-sm;
     &::before {

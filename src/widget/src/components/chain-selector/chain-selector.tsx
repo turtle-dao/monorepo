@@ -26,7 +26,7 @@ function IconWithChildren({ icon, children, ringClass = "" }: { icon: React.Reac
       <span className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center h-11 w-11 rounded-full ring-1 p-0.5 ${ringClass} bg-black`}>
         {icon}
       </span>
-      <div className="flex items-center rounded-full bg-[#181A20] pl-14 pr-4 gap-3 border border-[#222] w-full h-12">
+      <div className="flex items-center rounded-full bg-[#181A20] pl-14 pr-4 gap-3 border-none w-full h-12">
         {children}
       </div>
     </div>
@@ -54,7 +54,7 @@ export function ChainSelector(): JSX.Element {
         ringClass={chain?.glow || ""}
       >
         <Select value={selectedChain} onValueChange={setSelectedChain}>
-          <SelectTrigger className="flex items-center gap-3 rounded-full bg-[#181A20] border-0 w-full h-12 pl-0 pr-0">
+          <SelectTrigger className="flex items-center dark:bg-[#181A20] hover:border-none focus:bg-[#181A20] bg-[#181A20] gap-3 rounded-full border-none w-full h-12 pl-0 pr-0">
             <span className="text-white font-semibold">{chain?.label}</span>
           </SelectTrigger>
           <SelectContent>
