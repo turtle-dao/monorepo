@@ -54,53 +54,24 @@ export function useWidgetStyles() {
     // Multi chain
     multiChain: config.multi_chain,
     // Dynamic CSS variables based on config
-    cssVariables: {
-      // Brand colors
-      "--color-brand-primary": config.styles?.color_brand_primary,
-      "--color-brand-secondary": config.styles?.color_brand_secondary,
-      "--color-brand-secondary-10": config.styles?.color_brand_secondary_10,
-
+    cssligth: {
       // Surface colors
-      "--color-surface-primary": config.styles?.color_surface_primary,
-      "--color-surface-input": config.styles?.color_surface_input,
-      "--color-surface-world": config.styles?.color_surface_world,
-      "--color-surface-transparent": config.styles?.color_surface_transparent,
-      "--color-surface-underlay": config.styles?.color_surface_underlay,
+      "--color-surface-primary": config.styles.color_surface_primary,
+      "--color-surface-secondary": config.styles.color_surface_secondary,
 
       // Text colors
-      "--color-text-primary": config.styles?.color_text_primary,
-      "--color-text-secondary": config.styles?.color_text_secondary,
-      "--color-text-tertiary": config.styles?.color_text_tertiary,
-      "--color-text-additional": config.styles?.color_text_additional,
-      "--color-text-positive": config.styles?.color_text_positive,
-      "--color-text-negative": config.styles?.color_text_negative,
-
-      // Border colors
-      "--color-border-primary": config.styles?.color_border_primary,
-      "--color-border-secondary": config.styles?.color_border_secondary,
-      "--color-border-input": config.styles?.color_border_input,
-      "--color-border-divider": config.styles?.color_border_divider,
-
-      // Button colors
-      "--color-button-primary": config.styles?.color_button_primary,
-      "--color-button-primary-text": config.styles?.color_button_primary_text,
-      "--color-button-secondary": config.styles?.color_button_secondary,
-      "--color-button-tertiary": config.styles?.color_button_tertiary,
-
-      // Border radius
-      "--radius-0": config.styles?.radius_0,
-      "--radius-4": config.styles?.radius_4,
-      "--radius-8": config.styles?.radius_8,
-      "--radius-12": config.styles?.radius_12,
-      "--radius-16": config.styles?.radius_16,
-      "--radius-20": config.styles?.radius_20,
-      "--radius-24": config.styles?.radius_24,
-      "--radius-28": config.styles?.radius_28,
-      "--radius-32": config.styles?.radius_32,
-      "--radius-100": config.styles?.radius_100,
-
-      // Default radius from config
-      "--radius-default": config.rounding,
+      "--color-text-primary": config.styles.color_text_primary,
+      "--color-text-muted": config.styles.color_text_muted,
+      "--color-text-accent": config.styles.color_text_accent,
+    },
+    cssdark: {
+      // Surface colors
+      "--color-surface-primary": config.styles.color_surface_primary_dark,
+      "--color-surface-secondary": config.styles.color_surface_secondary_dark,
+      // Text colors
+      "--color-text-primary": config.styles.color_text_primary_dark,
+      "--color-text-muted": config.styles.color_text_muted_dark,
+      "--color-text-accent": config.styles.color_text_accent,
     },
   };
 }

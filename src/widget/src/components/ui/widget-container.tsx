@@ -8,9 +8,8 @@ import { cn } from "@/lib/utils";
 const containerVariants = cva("", {
   variants: {
     variant: {
-      default: "dark:bg-wise-gray bg-gray-500",
-      dark: "bg-white/90 dark:bg-ninja-black",
-      card: "dark:bg-wise-gray bg-gray-500",
+      default: "bg-[var(--color-surface-primary)]",
+      card: "bg-[var(--color-surface-secondary)]",
     },
     gradient: {
       none: "",
@@ -98,19 +97,16 @@ export function WidgetContainer({
   const effectiveGradient = gradient ? (theme === "dark" ? "white" : "white") : "none";
   return (
     <div
-      className={cn(
-        containerVariants({
-          variant,
-          gradient: effectiveGradient,
-          border,
-          padding,
-          shadow,
-          width: widgetWidth,
-          gradientRadius: effectiveGradientRadius,
-          rounded: rounding,
-        }),
-        className,
-      )}
+      className={cn(containerVariants({
+        variant,
+        gradient: effectiveGradient,
+        border,
+        padding,
+        shadow,
+        width: widgetWidth,
+        gradientRadius: effectiveGradientRadius,
+        rounded: rounding,
+      }), className)}
       {...props}
     />
   );

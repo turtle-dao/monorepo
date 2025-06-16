@@ -7,7 +7,7 @@ import { TurtleLogo } from "./components/ui/turtle-logo";
 import { WidgetContainer } from "./components/ui/widget-container";
 import { WidgetRoot } from "./components/widget/widget-root";
 import { TAB_TURTLE_EARN, TAB_YOUR_POSITIONS, tabButtons, type TabType } from "./constants";
-import { config2, config3, config4, defaultWidgetStyleConfig, widgetStyleConfigAtom } from "./store/widget-style-config";
+import { config2, config3, defaultWidgetStyleConfig, widgetStyleConfigAtom } from "./store/widget-style-config";
 import { cn } from "./utils";
 
 function App(): JSX.Element {
@@ -17,28 +17,28 @@ function App(): JSX.Element {
   return (
     <div className={cn("relative z-[1] flex flex-col w-screen items-center justify-center items-center size-full min-h-screen")}>
       <div className="flex gap-2 justify-between p-2">
-        <Button onClick={() => setConfig(config4)}>Default</Button>
-        <Button onClick={() => setConfig(defaultWidgetStyleConfig)}>Config 1</Button>
+        <Button onClick={() => setConfig(defaultWidgetStyleConfig)}>Default</Button>
         <Button onClick={() => setConfig(config2)}>Config 2</Button>
         <Button onClick={() => setConfig(config3)}>Config 3</Button>
       </div>
       <WidgetRoot config={defaultWidgetStyleConfig}>
+        <MenuBar
+          selectedValue={tab}
+          onValueChange={setTab}
+          items={[...tabButtons]}
+          className="hidden w-full bg-[var(--color-surface-primary)] sm:inline-flex"
+        />
         <WidgetContainer
           gradient
-          variant="dark"
+          variant="default"
           shadow="xlarge"
           className="flex w-full flex-col gap-5"
         >
           <div className="flex justify-center items-center text-4xl font-bold font-sans py-2.5 text-neon-green">
             <TurtleLogo className="w-20 h-20" />
-            <span className="ml-2">Turtle Club</span>
+            <span className="ml-2 text-[var(--color-text-primary)]">Turtle Club</span>
           </div>
-          <MenuBar
-            selectedValue={tab}
-            onValueChange={setTab}
-            items={[...tabButtons]}
-            className="hidden w-full bg-ninja-black sm:inline-flex"
-          />
+
           <ChainSelector />
           {tab === TAB_TURTLE_EARN && <Swap />}
           {tab === TAB_YOUR_POSITIONS && <div>Positions</div>}

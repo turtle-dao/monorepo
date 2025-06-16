@@ -62,13 +62,13 @@ export function MenuBar<T extends string>({
       <div
         ref={containerRef}
         className={cn(
-          "relative hidden h-10 w-full gap-2.5 rounded-full border border-wise-white/10 bg-wise-white/5 font-medium sm:flex",
+          "relative hidden h-10 w-full gap-2.5 rounded-full border border-wise-white/10 bg-[var(--color-surface-primary)] font-medium sm:flex",
           className,
         )}
       >
         <div
           ref={indicatorRef}
-          className="absolute bottom-0 h-full origin-left rounded-full bg-wise-white/10 transition-all duration-300"
+          className="absolute bottom-0 h-full origin-left rounded-full bg-[var(--color-surface-primary)] transition-all duration-300"
         />
 
         {items.map(button => (
@@ -76,8 +76,8 @@ export function MenuBar<T extends string>({
             type="button"
             key={button.label}
             data-active={selectedValue === button.value}
-            className={`relative z-[1] w-full whitespace-nowrap rounded-full px-2 py-[6px] cursor-pointer text-sm text-wise-white/50 transition-all sm:grow-0 ${
-              selectedValue === button.value ? "!text-neon-green" : "hover:text-neon-green"
+            className={`relative z-[1] w-full whitespace-nowrap rounded-full px-2 py-[6px] cursor-pointer text-sm text-[var(--color-text-primary)] transition-all sm:grow-0 ${
+              selectedValue === button.value ? "!text-[var(--color-text-accent)]" : "hover:text-[var(--color-text-accent)]"
             }`}
             onClick={() => handleClick(button.value)}
           >

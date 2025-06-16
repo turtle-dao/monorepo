@@ -2,6 +2,7 @@ import type { JSX } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 import { Button } from "@/components/ui/shadcn/button";
+import { useWidgetStyles } from "@/lib/cva-variants";
 import { cn } from "@/utils";
 
 const customButtonVariants = cva(
@@ -10,11 +11,14 @@ const customButtonVariants = cva(
     variants: {
       variant: {
         default:
-          "gradient-radius-full hover-gradient-border hover-gradient-border-green-diagonal hover-gradient-radius-full border border-wise-white/10 bg-wise-white/10 text-wise-white hover:bg-ninja-black active:shadow-[0px_0px_4px_0px_rgba(115,243,108,1)]",
+          "hover-gradient-border hover-gradient-border-green-diagonal border border-[var(--color-text-muted)] bg-[var(--color-surface-primary)] text-[var(--color-text-primary)] hover:bg-[var(--color-surface-secondary)] hover:text-[var(--color-text-accent)] active:shadow-[0px_0px_4px_0px_rgba(115,243,108,1)]",
         reversed:
-          "gradient-border gradient-border-green-vertical gradient-radius-full bg-ninja-black text-neon-green shadow-[0px_0px_4px_0px_rgba(115,243,108,1)] hover:bg-ninja-black hover:shadow-[0px_0px_20px_0px_rgba(115,243,108,0.7)]",
-        ghost: "rounded-full border border-wise-white/10 bg-wise-white/10 hover:bg-accent hover:text-neon-green",
-        empty: "bg-transparent font-normal hover:bg-transparent",
+          "gradient-border gradient-border-green-vertical bg-[var(--color-surface-secondary)] text-[var(--color-text-accent)] border border-[var(--color-text-accent)] shadow-[0px_0px_4px_0px_rgba(115,243,108,1)] hover:bg-[var(--color-surface-primary)] hover:text-[var(--color-text-primary)] hover:shadow-[0px_0px_20px_0px_rgba(115,243,108,0.7)]",
+        ghost:
+          "border border-[var(--color-text-muted)] bg-transparent text-[var(--color-text-primary)] hover:bg-[var(--color-surface-secondary)] hover:text-[var(--color-text-accent)]",
+        empty:
+          "bg-transparent font-normal text-[var(--color-text-muted)] hover:bg-transparent",
+
       },
       color: {
         default: "",
@@ -25,6 +29,28 @@ const customButtonVariants = cva(
         sm: "h-[28px] px-3",
         lg: "h-[44px] px-8 text-base",
         xl: "h-[60px] p-4 text-xl",
+      },
+      rounded: {
+        "none": "rounded-none",
+        "default": "rounded",
+        "sm": "rounded-sm",
+        "md": "rounded-md",
+        "lg": "rounded-lg",
+        "xl": "rounded-xl",
+        "2xl": "rounded-2xl",
+        "3xl": "rounded-3xl",
+        "full": "rounded-full",
+      },
+      gradientRadius: {
+        "none": "gradient-radius-none",
+        "default": "gradient-radius-sm",
+        "sm": "gradient-radius-sm",
+        "md": "gradient-radius-md",
+        "lg": "gradient-radius-lg",
+        "xl": "gradient-radius-xl",
+        "2xl": "gradient-radius-2xl",
+        "3xl": "gradient-radius-3xl",
+        "full": "gradient-radius-full",
       },
     },
     defaultVariants: {
@@ -42,11 +68,14 @@ export interface ButtonProps
 }
 
 export function TurtleButton({ ref, className, variant = "default", size = "default", color, fullWidth, ...props }: ButtonProps & { ref?: React.RefObject<HTMLButtonElement | null> }): JSX.Element {
+  const { rounding } = useWidgetStyles();
+  const effectiveGradientRadius = rounding ?? "none";
+
   return (
     <Button
       ref={ref}
       {...props}
-      className={cn(customButtonVariants({ variant, size, color, className }), fullWidth && "w-full")}
+      className={cn(customButtonVariants({ variant, size, color, className, gradientRadius: effectiveGradientRadius, rounded: rounding }), fullWidth && "w-full")}
     />
   );
 }

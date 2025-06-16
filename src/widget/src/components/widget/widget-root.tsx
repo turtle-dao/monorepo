@@ -12,7 +12,7 @@ interface WidgetRootProps {
 
 export function WidgetRoot({ config, children }: WidgetRootProps): JSX.Element {
   const setWidgetConfig = useSetAtom(widgetStyleConfigAtom);
-  const { theme, cssVariables, fontPrimary, fontSecondary, widgetWidth } = useWidgetStyles();
+  const { theme, cssdark, cssligth, fontPrimary, fontSecondary, widgetWidth } = useWidgetStyles();
 
   useEffect(() => {
     setWidgetConfig(config);
@@ -22,7 +22,7 @@ export function WidgetRoot({ config, children }: WidgetRootProps): JSX.Element {
     <div
       className={`font-${fontPrimary} antialiased transition-all duration-700 ease-linear ${theme === "dark" ? "dark" : ""}`}
       style={{
-        ...(cssVariables as React.CSSProperties),
+        ...(theme === "dark" ? cssdark : cssligth),
         "--font-primary": fontPrimary,
         "--font-secondary": fontSecondary,
       } as React.CSSProperties}
