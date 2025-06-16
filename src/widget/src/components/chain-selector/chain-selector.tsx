@@ -1,9 +1,10 @@
 import type { JSX } from "react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useAccount } from "wagmi";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/shadcn/select";
 // TODO: create a pkg for manage supported chains and utilities
 import { chainLogo, chainName } from "@/lib/chains";
+import { shortenAddress } from "@/utils/address";
 
 // Example: Only Ethereum Mainnet for now
 const CHAINS = [
@@ -11,16 +12,10 @@ const CHAINS = [
   // Add more chains as needed
 ];
 
-function shortenAddress(address?: string): string {
-  if (!address)
-    return "-";
-  return `${address.slice(0, 6)}...${address.slice(-4)}`;
-}
-
 export function ChainSelector(): JSX.Element {
   const { address } = useAccount();
   const [selectedChain, setSelectedChain] = useState<string>(CHAINS[0].value);
-  const chain = CHAINS.find(c => c.value === selectedChain);
+  const chain = useMemo(() => CHAINS.find(c => c.value === selectedChain), [selectedChain]);
 
   return (
     <div className="flex w-full items-center justify-between gap-4">
