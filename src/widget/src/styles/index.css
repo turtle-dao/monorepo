@@ -13,10 +13,6 @@
     border-color: var(--color-gray-200, currentColor);
   }
 
-  * {
-
-  }
-
   html, body {
     @apply size-full font-sans antialiased;
   }
@@ -28,21 +24,3 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 }
-
-:root {
-  --color-surface-primary: #141514;
-  --color-surface-secondary: #191A19;
-
-  --color-text-primary: #F9F9F9;
-  --color-text-muted: #7E7E7E;
-  --color-text-accent: #5d904f;
-}
-
-.dark {
-  --color-surface-primary: #e4efe1;
-  --color-surface-secondary: #c5ccc3;
-
-  --color-text-primary: #2a2a2a;
-  --color-text-muted: #7E7E7E;
-  --color-text-accent: #8DE276;
-} 

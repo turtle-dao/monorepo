@@ -66,12 +66,12 @@ export function useWidgetStyles() {
     },
     cssdark: {
       // Surface colors
-      "--color-surface-primary": config.styles.color_surface_primary_dark,
-      "--color-surface-secondary": config.styles.color_surface_secondary_dark,
+      "--color-surface-primary-dark": config.styles.color_surface_primary_dark,
+      "--color-surface-secondary-dark": config.styles.color_surface_secondary_dark,
       // Text colors
-      "--color-text-primary": config.styles.color_text_primary_dark,
-      "--color-text-muted": config.styles.color_text_muted_dark,
-      "--color-text-accent": config.styles.color_text_accent,
+      "--color-text-primary-dark": config.styles.color_text_primary_dark,
+      "--color-text-muted-dark": config.styles.color_text_muted_dark,
+      "--color-text-accent-dark": config.styles.color_text_accent,
     },
   };
 }

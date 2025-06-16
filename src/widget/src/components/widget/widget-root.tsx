@@ -22,7 +22,8 @@ export function WidgetRoot({ config, children }: WidgetRootProps): JSX.Element {
     <div
       className={`font-${fontPrimary} antialiased transition-all duration-700 ease-linear ${theme === "dark" ? "dark" : ""}`}
       style={{
-        ...(theme === "dark" ? cssdark : cssligth),
+        ...cssdark,
+        ...cssligth,
         "--font-primary": fontPrimary,
         "--font-secondary": fontSecondary,
       } as React.CSSProperties}

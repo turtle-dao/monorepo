@@ -11,13 +11,13 @@ const customButtonVariants = cva(
     variants: {
       variant: {
         default:
-          "hover-gradient-border hover-gradient-border-green-diagonal border border-[var(--color-text-muted)] bg-[var(--color-surface-primary)] text-[var(--color-text-primary)] hover:bg-[var(--color-surface-secondary)] hover:text-[var(--color-text-accent)] active:shadow-[0px_0px_4px_0px_rgba(115,243,108,1)]",
+          "hover-gradient-border hover-gradient-border-green-diagonal border border-[var(--color-text-muted)] dark:border-[var(--color-text-muted-dark)] bg-[var(--color-surface-primary)] dark:bg-[var(--color-surface-primary-dark)] text-[var(--color-text-primary)] dark:text-[var(--color-text-primary-dark)] hover:bg-[var(--color-surface-secondary)] dark:hover:bg-[var(--color-surface-secondary-dark)] hover:text-[var(--color-text-accent)] dark:hover:text-[var(--color-text-accent-dark)] active:shadow-[0px_0px_4px_0px_rgba(115,243,108,1)]",
         reversed:
-          "gradient-border gradient-border-green-vertical bg-[var(--color-surface-secondary)] text-[var(--color-text-accent)] border border-[var(--color-text-accent)] shadow-[0px_0px_4px_0px_rgba(115,243,108,1)] hover:bg-[var(--color-surface-primary)] hover:text-[var(--color-text-primary)] hover:shadow-[0px_0px_20px_0px_rgba(115,243,108,0.7)]",
+          "gradient-border gradient-border-green-vertical bg-[var(--color-surface-secondary)] dark:bg-[var(--color-surface-secondary-dark)] text-[var(--color-text-accent)] dark:text-[var(--color-text-accent-dark)] border border-[var(--color-text-accent)] dark:border-[var(--color-text-accent-dark)] shadow-[0px_0px_4px_0px_rgba(115,243,108,1)] hover:bg-[var(--color-surface-primary)] dark:hover:bg-[var(--color-surface-primary-dark)] hover:text-[var(--color-text-primary)] dark:hover:text-[var(--color-text-primary-dark)] hover:shadow-[0px_0px_20px_0px_rgba(115,243,108,0.7)]",
         ghost:
-          "border border-[var(--color-text-muted)] bg-transparent text-[var(--color-text-primary)] hover:bg-[var(--color-surface-secondary)] hover:text-[var(--color-text-accent)]",
+          "border border-[var(--color-text-muted)] dark:border-[var(--color-text-muted-dark)] bg-transparent text-[var(--color-text-primary)] dark:text-[var(--color-text-primary-dark)] hover:bg-[var(--color-surface-secondary)] dark:hover:bg-[var(--color-surface-secondary-dark)] hover:text-[var(--color-text-accent)] dark:hover:text-[var(--color-text-accent-dark)]",
         empty:
-          "bg-transparent font-normal text-[var(--color-text-muted)] hover:bg-transparent",
+          "bg-transparent font-normal text-[var(--color-text-muted)] dark:text-[var(--color-text-muted-dark)] hover:bg-transparent",
 
       },
       color: {

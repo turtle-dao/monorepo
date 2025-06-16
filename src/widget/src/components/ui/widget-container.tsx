@@ -8,8 +8,8 @@ import { cn } from "@/lib/utils";
 const containerVariants = cva("", {
   variants: {
     variant: {
-      default: "bg-[var(--color-surface-primary)]",
-      card: "bg-[var(--color-surface-secondary)]",
+      default: "bg-[var(--color-surface-primary)] dark:bg-[var(--color-surface-primary-dark)]",
+      card: "bg-[var(--color-surface-secondary)] dark:bg-[var(--color-surface-secondary-dark)]",
     },
     gradient: {
       none: "",
