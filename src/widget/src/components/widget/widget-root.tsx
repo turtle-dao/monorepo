@@ -28,7 +28,7 @@ export function WidgetRoot({ config, children }: WidgetRootProps): JSX.Element {
         "--font-secondary": fontSecondary,
       } as React.CSSProperties}
     >
-      <div className={cn("flex w-full flex-col items-center gap-2 h-full max-h-[calc(100vh-2rem)]", widgetWidth === "full" ? "w-full" : "max-w-[510px]")}>
+      <div className={cn("flex flex-col items-center gap-2 h-full max-h-[calc(100vh-2rem)]", widgetWidth === "full" ? "w-full" : "max-w-[420px]")}>
         {children}
       </div>
     </div>

@@ -5,7 +5,7 @@ function Swap(): JSX.Element {
   return (
     <div className="flex flex-col gap-4">
       <Deposit />
-      <Earn />
+      <Earn name="Zerolend ETH" iconUrl="https://app.turtle.club/networks/ethereum.svg" tvl="123.43M" yieldPercentage="13.85%" />
       <ConfirmButton />
     </div>
   );

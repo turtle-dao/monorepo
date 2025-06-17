@@ -1,14 +1,29 @@
 import type { JSX } from "react";
 import { ExternalLink } from "lucide-react";
+import { AssetIcon } from "@/components/ui/asset-icon";
 import { InfoCard } from "@/components/ui/info-card";
 import { WidgetContainer } from "@/components/ui/widget-container";
 
-export function Earn(): JSX.Element {
+export function Earn({ name, iconUrl, tvl, yieldPercentage }: { name: string; iconUrl: string; tvl: string; yieldPercentage: string }): JSX.Element {
   return (
     <>
-      <div className="text-md text-[var(--color-text-primary)] dark:text-[var(--color-text-primary-dark)]">Direct Earn</div>
+      <div className="text-md text-[var(--color-text-primary)] dark:text-[var(--color-text-primary-dark)]">Earn</div>
       <WidgetContainer variant="card" shadow="large" gradient>
-        <p className="text-sm text-[var(--color-text-primary)] dark:text-[var(--color-text-primary-dark)]">It will display a label showing the total amount of tokens to receive in a deal or campaign, along with a dropdown listing all possible options based on the token selected for deposit.</p>
+        <div className="flex justify-between p-1">
+          <div className="flex flex-col gap-0.5 ">
+            <div className="flex gap-2 items-center justify-start">
+              <AssetIcon url={iconUrl} />
+              <span className="text-2xl text-[var(--color-text-primary)]">{name}</span>
+            </div>
+            <span className="text-xs text-[var(--color-text-primary)]/80">
+              Boosted TVL $
+              {tvl}
+            </span>
+          </div>
+          <div className="text-[var(--color-text-primary)]">
+            <span className="text-4xl">{yieldPercentage}</span>
+          </div>
+        </div>
       </WidgetContainer>
       <EarnDetails />
     </>
