@@ -53,10 +53,10 @@ function App(): JSX.Element {
           </div>
 
           <ChainSelector />
-          <div className="flex-1 min-h-0 overflow-y-auto">
-            {tab === TAB_TURTLE_EARN && <Swap />}
-            {tab === TAB_YOUR_POSITIONS && <div>Positions</div>}
-          </div>
+
+          {tab === TAB_TURTLE_EARN && <Swap />}
+          {tab === TAB_YOUR_POSITIONS && <div>Positions</div>}
+
         </WidgetContainer>
       </WidgetRoot>
     </div>

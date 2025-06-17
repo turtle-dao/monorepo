@@ -32,7 +32,7 @@ export function Earn({ name, iconUrl, tvl, yieldPercentage }: { name: string; ic
 
 function EarnDetails(): JSX.Element {
   return (
-    <WidgetContainer variant="default" shadow="large" gradient className="max-h-96 overflow-y-auto">
+    <WidgetContainer variant="default" shadow="large" gradient className="max-h-96 overflow-y-auto no-scrollbar">
       <div className="flex justify-between mb-5 overflow-y-auto">
         <div className="flex gap-2 items-center">
           <span className="rounded-full bg-green-950 border-[var(--color-text-accent)] border-2 p-1 w-5 h-5"></span>
