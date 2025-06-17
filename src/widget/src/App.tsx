@@ -26,15 +26,15 @@ function App(): JSX.Element {
   }, [isDarkMode]);
 
   return (
-    <div className={cn("relative z-[1] flex flex-col w-screen items-center justify-center items-center size-full min-h-screen")}>
-      <div className="flex gap-2 justify-between p-2">
+    <div className={cn("flex w-screen justify-center items-center h-screen p-4")}>
+      {/* <div className="flex gap-2 justify-between p-2 absolute top-4 left-4 z-10">
         <Button onClick={() => setConfig(defaultWidgetStyleConfig)}>Default</Button>
         <Button onClick={() => setConfig(config2)}>Config 2</Button>
         <Button onClick={() => setConfig(config3)}>Config 3</Button>
         <Button onClick={() => setIsDarkMode(!isDarkMode)}>
           {isDarkMode ? "🌞 Light" : "🌙 Dark"}
         </Button>
-      </div>
+      </div> */}
       <WidgetRoot config={defaultWidgetStyleConfig}>
         <MenuBar
           selectedValue={tab}
@@ -46,16 +46,17 @@ function App(): JSX.Element {
           gradient
           variant="default"
           shadow="xlarge"
-          className="flex w-full flex-col gap-5"
+          className="flex w-full flex-col gap-3.5 flex-1 min-h-0"
         >
-          <div className="flex justify-center items-center text-4xl font-bold font-sans py-2.5 text-neon-green">
-            <TurtleLogo className="w-20 h-20" />
-            <span className="ml-2 text-[var(--color-text-primary)] dark:text-[var(--color-text-primary-dark)]">Turtle Club</span>
+          <div className="flex justify-center items-center text-4xl font-bold font-sans py-2">
+            <span className="text-[var(--color-text-accent)] dark:text-[var(--color-text-accent-dark)]">Turtle Club</span>
           </div>
 
           <ChainSelector />
-          {tab === TAB_TURTLE_EARN && <Swap />}
-          {tab === TAB_YOUR_POSITIONS && <div>Positions</div>}
+          <div className="flex-1 min-h-0 overflow-y-auto">
+            {tab === TAB_TURTLE_EARN && <Swap />}
+            {tab === TAB_YOUR_POSITIONS && <div>Positions</div>}
+          </div>
         </WidgetContainer>
       </WidgetRoot>
     </div>

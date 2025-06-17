@@ -27,7 +27,7 @@ export const defaultWidgetStyleConfig: WidgetStyleConfig = {
   rounding: "2xl",
   widget_style: "default",
   widget_width: "default",
-  padding: "large",
+  padding: "default",
   navigation: "segments",
   font_primary: "Inter",
   font_secondary: "Inter",
