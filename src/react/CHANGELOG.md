@@ -1,5 +1,29 @@
 # @turtledev/react
 
+## 1.4.7
+
+### Patch Changes
+
+- Fixed bundler caused issues with tokenlist
+- Updated dependencies
+  - @turtledev/api@1.4.5
+
+## 1.4.5
+
+### Patch Changes
+
+- Removed custom export completely to simplify support
+- Updated dependencies
+  - @turtledev/api@1.4.4
+
+## 1.4.5
+
+### Patch Changes
+
+- Added `src` as an included package
+- Updated dependencies
+  - @turtledev/api@1.4.3
+
 ## 1.4.4
 
 ### Patch Changes

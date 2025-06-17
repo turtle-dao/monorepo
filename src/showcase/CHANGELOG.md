@@ -1,5 +1,28 @@
 # @turtledev/showcase
 
+## 0.4.7
+
+### Patch Changes
+
+- Fixed bundler caused issues with tokenlist
+- Updated dependencies
+  - @turtledev/react@1.4.7
+
+## 0.4.6
+
+### Patch Changes
+
+- Removed custom export completely to simplify support
+- Updated dependencies
+  - @turtledev/react@1.4.5
+
+## 0.4.5
+
+### Patch Changes
+
+- Updated dependencies
+  - @turtledev/react@1.4.5
+
 ## 0.4.4
 
 ### Patch Changes

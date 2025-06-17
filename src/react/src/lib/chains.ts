@@ -1,5 +1,5 @@
 import * as rawChains from "viem/chains";
-import * as chainlist from "./chainlist.json";
+import { chainlist } from "./chainlist";
 
 interface ChainlistItem {
   name: string;
@@ -16,7 +16,7 @@ export const chains: Record<number, rawChains.Chain> = Object.fromEntries(
 );
 
 export const chainlistItems: Record<number, ChainlistItem> = Object.fromEntries(
-  Array.from((chainlist as any).default).map((value: any) => [value.chainId, value]),
+  chainlist.map((value: any) => [value.chainId, value]),
 );
 
 const chainNames: Record<string, rawChains.Chain> = Object.fromEntries(
