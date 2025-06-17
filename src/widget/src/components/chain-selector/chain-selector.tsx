@@ -33,6 +33,33 @@ function IconWithChildren({ icon, children, ringClass = "" }: { icon: React.Reac
   );
 }
 
+export function ChainSelect({ chain, selectedChain, setSelectedChain }: { chain: any; selectedChain: string; setSelectedChain: (chain: string) => void }): JSX.Element {
+  return (
+    <IconWithChildren
+      icon={<img src={chain?.icon} alt={chain?.label} className="h-8 w-8 rounded-full" />}
+      ringClass={chain?.glow || ""}
+    >
+      <Select value={selectedChain} onValueChange={setSelectedChain}>
+        <SelectTrigger className="flex items-center dark:bg-[#181A20] hover:border-none focus:bg-[#181A20] bg-[#181A20] gap-3 rounded-full border-none w-full h-12 pl-0 pr-0">
+          <span className="text-white font-semibold">{chain?.label}</span>
+        </SelectTrigger>
+        <SelectContent>
+          {CHAINS.map(c => (
+            <SelectItem key={c.value} value={c.value}>
+              <span className="flex items-center gap-2">
+                <span className={`flex items-center justify-center h-5 w-5 rounded-full ring-1 ${c.glow} bg-black`}>
+                  <img src={c.icon} alt={c.label} className="h-6 w-6 rounded-full" />
+                </span>
+                {c.label}
+              </span>
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </IconWithChildren>
+  );
+}
+
 export function ChainSelector(): JSX.Element {
   const { address } = useAccount();
   const [selectedChain, setSelectedChain] = useState<string>(CHAINS[0].value);
@@ -49,28 +76,7 @@ export function ChainSelector(): JSX.Element {
       </IconWithChildren>
 
       {/* Chain Selector */}
-      <IconWithChildren
-        icon={<img src={chain?.icon} alt={chain?.label} className="h-8 w-8 rounded-full" />}
-        ringClass={chain?.glow || ""}
-      >
-        <Select value={selectedChain} onValueChange={setSelectedChain}>
-          <SelectTrigger className="flex items-center dark:bg-[#181A20] hover:border-none focus:bg-[#181A20] bg-[#181A20] gap-3 rounded-full border-none w-full h-12 pl-0 pr-0">
-            <span className="text-white font-semibold">{chain?.label}</span>
-          </SelectTrigger>
-          <SelectContent>
-            {CHAINS.map(c => (
-              <SelectItem key={c.value} value={c.value}>
-                <span className="flex items-center gap-2">
-                  <span className={`flex items-center justify-center h-5 w-5 rounded-full ring-1 ${c.glow} bg-black`}>
-                    <img src={c.icon} alt={c.label} className="h-6 w-6 rounded-full" />
-                  </span>
-                  {c.label}
-                </span>
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </IconWithChildren>
+      <ChainSelect chain={chain} selectedChain={selectedChain} setSelectedChain={setSelectedChain} />
     </div>
   );
 }
