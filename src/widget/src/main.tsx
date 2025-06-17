@@ -6,8 +6,8 @@ import { WagmiProvider } from "wagmi";
 import { EthProvider } from "@/utils/rainbowkit/eth-provider";
 import App from "./App";
 import { config } from "./config/wagmi";
-import { createIDBPersister } from "./utils/tanstack/persister";
 
+import { createIDBPersister } from "./utils/tanstack/persister";
 import "./styles/gradients.css";
 import "./styles/index.css";
 import "@rainbow-me/rainbowkit/styles.css";
@@ -42,7 +42,6 @@ root.render(
     <PersistQueryClientProvider client={queryClient} persistOptions={{ persister }}>
       <WagmiProvider config={config}>
         <EthProvider>
-
           <App />
         </EthProvider>
       </WagmiProvider>
