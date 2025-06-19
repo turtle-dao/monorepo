@@ -5,6 +5,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 // TODO: create a pkg for manage supported chains and utilities
 import { chainLogo, chainName } from "@/lib/chains";
 import { TurtleLogo } from "../ui/turtle-logo";
+import WalletSelector from "../wallet-selector/wallet-selector";
+import { ChainSelectorV2 } from "./chain-selector-v2";
 
 // Example: Only Ethereum Mainnet for now
 const CHAINS = [
@@ -61,22 +63,18 @@ export function ChainSelect({ chain, selectedChain, setSelectedChain }: { chain:
 }
 
 export function ChainSelector(): JSX.Element {
-  const { address } = useAccount();
-  const [selectedChain, setSelectedChain] = useState<string>(CHAINS[0].value);
-  const chain = CHAINS.find(c => c.value === selectedChain);
+  // const { address } = useAccount();
+  // const [selectedChain, setSelectedChain] = useState<string>(CHAINS[0].value);
+  // const chain = CHAINS.find(c => c.value === selectedChain);
 
   return (
     <div className="flex w-full items-center justify-between gap-4">
       {/* Wallet Address Selector */}
-      <IconWithChildren
-        icon={<TurtleLogo className="h-8 w-8 text-green-400" />}
-        ringClass="ring-green-400/60"
-      >
-        <span className="text-white text-sm font-mono text-ellipsis overflow-hidden">{address ? shortenAddress(address) : "No wallet"}</span>
-      </IconWithChildren>
+      <WalletSelector />
 
       {/* Chain Selector */}
-      <ChainSelect chain={chain} selectedChain={selectedChain} setSelectedChain={setSelectedChain} />
+      <ChainSelectorV2 />
+      {/* <ChainSelect chain={chain} selectedChain={selectedChain} setSelectedChain={setSelectedChain} /> */}
     </div>
   );
 }

@@ -1,8 +1,11 @@
+import { TurtleLogo } from "@turtledev/react";
 import { useAtomValue } from "jotai";
 import { type JSX, useState } from "react";
 import { ChainSelector, Swap } from "./components";
+import { ChainSelectorV2 } from "./components/chain-selector/chain-selector-v2";
 import Deals from "./components/deals";
 import { MenuBar } from "./components/MenuBar";
+import { ComboBoxOverlay } from "./components/ui/example-combobox-overlay";
 import { WidgetContainer } from "./components/ui/widget-container";
 import { WidgetRoot } from "./components/widget/widget-root";
 import { TAB_DISCOVER, TAB_PORTFOLIO, TAB_TURTLE_EARN, tabButtons, type TabType } from "./constants";
