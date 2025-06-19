@@ -2,14 +2,35 @@ import type { JSX } from "react";
 import type { DealFormatted } from "@/App";
 import { useSetAtom } from "jotai";
 import { formatNumber } from "@/lib/format";
-import { showPanelAtom } from "@/store/sections";
+import { dealSelectedAtom, showPanelAtom } from "@/store/sections";
 import { AssetIcon } from "./ui/asset-icon";
 import { WidgetContainer } from "./ui/widget-container";
 
-function Opportunity({ tokenName, tvl, iconToken, yieldPercentage }: DealFormatted): JSX.Element {
+interface OpportunityProps extends DealFormatted {
+  showPanelOnClick?: boolean;
+  onAnimatedClose?: () => void;
+}
+
+function Opportunity({ tokenName, tvl, iconToken, yieldPercentage, iconDeal, showPanelOnClick = false, onAnimatedClose }: OpportunityProps): JSX.Element {
   const setShowPanel = useSetAtom(showPanelAtom);
+  const setDealSelected = useSetAtom(dealSelectedAtom);
+
+  const handleClick = (): void => {
+    setDealSelected({ tokenName, tvl, iconToken, yieldPercentage, iconDeal });
+
+    if (showPanelOnClick) {
+      setShowPanel(true);
+    }
+    else if (onAnimatedClose) {
+      onAnimatedClose();
+    }
+    else {
+      setShowPanel(false);
+    }
+  };
+
   return (
-    <WidgetContainer onClick={() => setShowPanel(true)} variant="card" shadow="large" gradient className="w-full">
+    <WidgetContainer onClick={handleClick} variant="card" shadow="large" gradient className="w-full">
       <div className="flex justify-between p-1">
         <div className="flex flex-col gap-2 ">
           <div className="flex gap-2 items-center justify-start">

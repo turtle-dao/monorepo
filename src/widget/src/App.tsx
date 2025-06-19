@@ -1,6 +1,5 @@
-import { useEarnDeals } from "@turtledev/react";
 import { useAtomValue } from "jotai";
-import { type JSX, useMemo, useState } from "react";
+import { type JSX, useState } from "react";
 import { ChainSelector, Swap } from "./components";
 import Deals from "./components/deals";
 import { MenuBar } from "./components/MenuBar";
@@ -23,19 +22,6 @@ function App(): JSX.Element {
   const [tab, setTab] = useState<TabType>("earn");
   const showPanel = useAtomValue(showPanelAtom);
 
-  const { data: deals } = useEarnDeals();
-  const dealsFormatted = useMemo<DealFormatted[]>(() => {
-    if (!deals)
-      return [];
-    return deals.deals.map(deal => ({
-      tokenName: deal.token.name,
-      tvl: deal.data.tvl,
-      iconToken: deal.token.logos[0],
-      iconDeal: deal.metadata.iconUrl,
-      yieldPercentage: deal.data.apy,
-    }));
-  }, [deals]);
-
   return (
     <div className={cn("flex w-screen justify-center items-center h-screen p-4")}>
       <WidgetRoot config={defaultWidgetStyleConfig}>
@@ -49,10 +35,10 @@ function App(): JSX.Element {
           gradient
           variant="default"
           shadow="xlarge"
-          className="flex w-full flex-col gap-3.5 flex-1 min-h-0"
+          className="flex w-full flex-col gap-3.5 flex-1 min-h-0 animate-in fade-in duration-300"
         >
           {showPanel
-            ? <Deals deals={dealsFormatted} />
+            ? <Deals />
             : (
                 <>
                   <div className="flex justify-center items-center text-4xl font-bold font-sans py-2">

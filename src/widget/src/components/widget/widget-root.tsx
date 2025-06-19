@@ -1,6 +1,7 @@
 import type { WidgetStyleConfig } from "../../types/style-config";
 import { useSetAtom } from "jotai";
 import { type JSX, useEffect } from "react";
+import { useAutoSelectDeal } from "@/hooks/useAutoSelectDeal";
 import { cn } from "@/utils";
 import { useWidgetStyles } from "../../lib/cva-variants";
 import { widgetStyleConfigAtom } from "../../store/widget-style-config";
@@ -13,6 +14,9 @@ interface WidgetRootProps {
 export function WidgetRoot({ config, children }: WidgetRootProps): JSX.Element {
   const setWidgetConfig = useSetAtom(widgetStyleConfigAtom);
   const { theme, cssdark, cssligth, fontPrimary, fontSecondary, widgetWidth } = useWidgetStyles();
+
+  // This hook ensures deals are loaded and first deal is auto-selected
+  useAutoSelectDeal();
 
   useEffect(() => {
     setWidgetConfig(config);
