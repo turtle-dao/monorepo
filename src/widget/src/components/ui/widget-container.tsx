@@ -89,7 +89,7 @@ export function WidgetContainer({
   shadow,
   ...props
 }: WidgetContainerProps): JSX.Element {
-  const { theme, rounding, padding, widgetWidth } = useWidgetStyles();
+  const { theme, rounding, padding } = useWidgetStyles();
 
   // If there's a gradient, the gradient radius should match the container's radius
   const effectiveGradientRadius = gradient ? rounding : "none";
@@ -103,7 +103,6 @@ export function WidgetContainer({
         border,
         padding,
         shadow,
-        width: widgetWidth,
         gradientRadius: effectiveGradientRadius,
         rounded: rounding,
       }), className)}

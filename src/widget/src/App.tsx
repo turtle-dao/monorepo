@@ -1,20 +1,23 @@
-import { useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { type JSX, useEffect, useState } from "react";
 import { ChainSelector, Swap } from "./components";
+import Deals from "./components/deals";
 import { MenuBar } from "./components/MenuBar";
 import { Button } from "./components/ui/shadcn/button";
 import { TurtleLogo } from "./components/ui/turtle-logo";
 import { WidgetContainer } from "./components/ui/widget-container";
 import { WidgetRoot } from "./components/widget/widget-root";
 import { TAB_TURTLE_EARN, TAB_YOUR_POSITIONS, tabButtons, type TabType } from "./constants";
+import { showPanelAtom } from "./store/sections";
 import { config2, config3, defaultWidgetStyleConfig, widgetStyleConfigAtom } from "./store/widget-style-config";
 import { cn } from "./utils";
 
 function App(): JSX.Element {
   const [tab, setTab] = useState<TabType>("swap");
+
   const [isDarkMode, setIsDarkMode] = useState(false);
   const setConfig = useSetAtom(widgetStyleConfigAtom);
-
+  const showPanel = useAtomValue(showPanelAtom);
   useEffect(() => {
     const root = document.documentElement;
     if (isDarkMode) {
@@ -48,15 +51,19 @@ function App(): JSX.Element {
           shadow="xlarge"
           className="flex w-full flex-col gap-3.5 flex-1 min-h-0"
         >
-          <div className="flex justify-center items-center text-4xl font-bold font-sans py-2">
-            <span className="text-[var(--color-text-accent)] dark:text-[var(--color-text-accent-dark)]">Turtle Club</span>
-          </div>
+          {showPanel
+            ? <Deals deals={[{ name: "Zerolend ETH", iconUrl: "https://app.turtle.club/networks/ethereum.svg", tvl: "123.43M", yieldPercentage: "13.85%" }, { name: "Zerolend ETH", iconUrl: "https://app.turtle.club/networks/ethereum.svg", tvl: "123.43M", yieldPercentage: "13.85%" }, { name: "Zerolend ETH", iconUrl: "https://app.turtle.club/networks/ethereum.svg", tvl: "123.43M", yieldPercentage: "13.85%" }]} />
+            : (
+                <>
+                  <div className="flex justify-center items-center text-4xl font-bold font-sans py-2">
+                    <span className="text-[var(--color-text-accent)] dark:text-[var(--color-text-accent-dark)]">Turtle Club</span>
+                  </div>
 
-          <ChainSelector />
-
-          {tab === TAB_TURTLE_EARN && <Swap />}
-          {tab === TAB_YOUR_POSITIONS && <div>Positions</div>}
-
+                  {/* <ChainSelector /> */}
+                  {tab === TAB_TURTLE_EARN && <Swap />}
+                  {tab === TAB_YOUR_POSITIONS && <div className="flex-1 min-h-0">Positions</div>}
+                </>
+              )}
         </WidgetContainer>
       </WidgetRoot>
     </div>

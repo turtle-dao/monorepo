@@ -20,7 +20,7 @@ export function WidgetRoot({ config, children }: WidgetRootProps): JSX.Element {
 
   return (
     <div
-      className={`font-${fontPrimary} antialiased transition-all duration-700 ease-linear ${theme === "dark" ? "dark" : ""}`}
+      className={`font-${fontPrimary} antialiased transition-all duration-700 ease-linear h-full w-full ${theme === "dark" ? "dark" : ""}`}
       style={{
         ...cssdark,
         ...cssligth,
@@ -28,7 +28,7 @@ export function WidgetRoot({ config, children }: WidgetRootProps): JSX.Element {
         "--font-secondary": fontSecondary,
       } as React.CSSProperties}
     >
-      <div className={cn("flex flex-col items-center gap-2 h-full max-h-[calc(100vh-2rem)]", widgetWidth === "full" ? "w-full" : "max-w-[420px]")}>
+      <div className={cn("flex flex-col items-center gap-2 h-full max-h-[calc(100vh-2rem)]", widgetWidth === "full" ? "w-full" : "max-w-[450px]")}>
         {children}
       </div>
     </div>
