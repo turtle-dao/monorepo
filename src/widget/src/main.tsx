@@ -1,12 +1,13 @@
 import { QueryClient } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
+import { TurtleProvider } from "@turtledev/react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { WagmiProvider } from "wagmi";
 import { EthProvider } from "@/utils/rainbowkit/eth-provider";
 import App from "./App";
-import { config } from "./config/wagmi";
 
+import { config } from "./config/wagmi";
 import { createIDBPersister } from "./utils/tanstack/persister";
 import "./styles/gradients.css";
 import "./styles/index.css";
@@ -42,7 +43,14 @@ root.render(
     <PersistQueryClientProvider client={queryClient} persistOptions={{ persister }}>
       <WagmiProvider config={config}>
         <EthProvider>
-          <App />
+          <TurtleProvider config={{
+            pointsEndpoint: "https://points.turtle.club/new",
+            indexerEndpoint: "https://index.turtle.vision",
+            earnEndpoint: "https://earn.turtle.vision",
+          }}
+          >
+            <App />
+          </TurtleProvider>
         </EthProvider>
       </WagmiProvider>
     </PersistQueryClientProvider>

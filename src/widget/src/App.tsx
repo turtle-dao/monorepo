@@ -1,43 +1,43 @@
-import { useAtomValue, useSetAtom } from "jotai";
-import { type JSX, useEffect, useState } from "react";
+import { useEarnDeals } from "@turtledev/react";
+import { useAtomValue } from "jotai";
+import { type JSX, useMemo, useState } from "react";
 import { ChainSelector, Swap } from "./components";
 import Deals from "./components/deals";
 import { MenuBar } from "./components/MenuBar";
-import { Button } from "./components/ui/shadcn/button";
-import { TurtleLogo } from "./components/ui/turtle-logo";
 import { WidgetContainer } from "./components/ui/widget-container";
 import { WidgetRoot } from "./components/widget/widget-root";
-import { TAB_TURTLE_EARN, TAB_YOUR_POSITIONS, tabButtons, type TabType } from "./constants";
+import { TAB_DISCOVER, TAB_PORTFOLIO, TAB_TURTLE_EARN, tabButtons, type TabType } from "./constants";
 import { showPanelAtom } from "./store/sections";
-import { config2, config3, defaultWidgetStyleConfig, widgetStyleConfigAtom } from "./store/widget-style-config";
+import { defaultWidgetStyleConfig } from "./store/widget-style-config";
 import { cn } from "./utils";
 
-function App(): JSX.Element {
-  const [tab, setTab] = useState<TabType>("swap");
+export interface DealFormatted {
+  tokenName: string;
+  tvl: number;
+  iconToken: string;
+  iconDeal: string;
+  yieldPercentage: number;
+}
 
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const setConfig = useSetAtom(widgetStyleConfigAtom);
+function App(): JSX.Element {
+  const [tab, setTab] = useState<TabType>("earn");
   const showPanel = useAtomValue(showPanelAtom);
-  useEffect(() => {
-    const root = document.documentElement;
-    if (isDarkMode) {
-      root.classList.add("dark");
-    }
-    else {
-      root.classList.remove("dark");
-    }
-  }, [isDarkMode]);
+
+  const { data: deals } = useEarnDeals();
+  const dealsFormatted = useMemo<DealFormatted[]>(() => {
+    if (!deals)
+      return [];
+    return deals.deals.map(deal => ({
+      tokenName: deal.token.name,
+      tvl: deal.data.tvl,
+      iconToken: deal.token.logos[0],
+      iconDeal: deal.metadata.iconUrl,
+      yieldPercentage: deal.data.apy,
+    }));
+  }, [deals]);
 
   return (
     <div className={cn("flex w-screen justify-center items-center h-screen p-4")}>
-      {/* <div className="flex gap-2 justify-between p-2 absolute top-4 left-4 z-10">
-        <Button onClick={() => setConfig(defaultWidgetStyleConfig)}>Default</Button>
-        <Button onClick={() => setConfig(config2)}>Config 2</Button>
-        <Button onClick={() => setConfig(config3)}>Config 3</Button>
-        <Button onClick={() => setIsDarkMode(!isDarkMode)}>
-          {isDarkMode ? "🌞 Light" : "🌙 Dark"}
-        </Button>
-      </div> */}
       <WidgetRoot config={defaultWidgetStyleConfig}>
         <MenuBar
           selectedValue={tab}
@@ -52,16 +52,16 @@ function App(): JSX.Element {
           className="flex w-full flex-col gap-3.5 flex-1 min-h-0"
         >
           {showPanel
-            ? <Deals deals={[{ name: "Zerolend ETH", iconUrl: "https://app.turtle.club/networks/ethereum.svg", tvl: "123.43M", yieldPercentage: "13.85%" }, { name: "Zerolend ETH", iconUrl: "https://app.turtle.club/networks/ethereum.svg", tvl: "123.43M", yieldPercentage: "13.85%" }, { name: "Zerolend ETH", iconUrl: "https://app.turtle.club/networks/ethereum.svg", tvl: "123.43M", yieldPercentage: "13.85%" }]} />
+            ? <Deals deals={dealsFormatted} />
             : (
                 <>
                   <div className="flex justify-center items-center text-4xl font-bold font-sans py-2">
                     <span className="text-[var(--color-text-accent)] dark:text-[var(--color-text-accent-dark)]">Turtle Club</span>
                   </div>
-
-                  {/* <ChainSelector /> */}
+                  <ChainSelector />
+                  {tab === TAB_PORTFOLIO && <div className="flex-1 min-h-0">Positions</div>}
                   {tab === TAB_TURTLE_EARN && <Swap />}
-                  {tab === TAB_YOUR_POSITIONS && <div className="flex-1 min-h-0">Positions</div>}
+                  {tab === TAB_DISCOVER && <div className="flex-1 min-h-0">Discover</div>}
                 </>
               )}
         </WidgetContainer>

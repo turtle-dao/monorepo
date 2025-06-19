@@ -68,7 +68,7 @@ export function MenuBar<T extends string>({
       >
         <div
           ref={indicatorRef}
-          className="absolute bottom-0 h-full origin-left rounded-full bg-[var(--color-surface-primary)] dark:bg-[var(--color-surface-primary-dark)] transition-all duration-300"
+          className="absolute bottom-0 h-full origin-left rounded-full bg-[var(--color-surface-secondary)] dark:bg-[var(--color-surface-secondary-dark)] transition-all duration-300"
         />
 
         {items.map(button => (

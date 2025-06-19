@@ -4,11 +4,11 @@ import Opportunity from "@/components/opportunity";
 import { InfoCard } from "@/components/ui/info-card";
 import { WidgetContainer } from "@/components/ui/widget-container";
 
-export function Earn({ name, iconUrl, tvl, yieldPercentage }: { name: string; iconUrl: string; tvl: string; yieldPercentage: string }): JSX.Element {
+export function Earn({ name, iconUrl, tvl, yieldPercentage }: { name: string; iconUrl: string; tvl: number; yieldPercentage: number }): JSX.Element {
   return (
     <>
       <div className="text-md text-[var(--color-text-primary)] dark:text-[var(--color-text-primary-dark)]">Earn</div>
-      <Opportunity name={name} iconUrl={iconUrl} tvl={tvl} yieldPercentage={yieldPercentage} />
+      <Opportunity tokenName={name} iconToken={iconUrl} tvl={tvl} yieldPercentage={yieldPercentage} iconDeal={iconUrl} />
       <EarnDetails />
     </>
   );
