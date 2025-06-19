@@ -40,7 +40,7 @@ function App(): JSX.Element {
           {showPanel
             ? <Deals />
             : (
-                <>
+                <div className="animate-in fade-in duration-300 flex flex-col gap-3.5 flex-1 min-h-0 w-full">
                   <div className="flex justify-center items-center text-4xl font-bold font-sans py-2">
                     <span className="text-[var(--color-text-accent)] dark:text-[var(--color-text-accent-dark)]">Turtle Club</span>
                   </div>
@@ -48,7 +48,7 @@ function App(): JSX.Element {
                   {tab === TAB_PORTFOLIO && <div className="flex-1 min-h-0">Positions</div>}
                   {tab === TAB_TURTLE_EARN && <Swap />}
                   {tab === TAB_DISCOVER && <div className="flex-1 min-h-0">Discover</div>}
-                </>
+                </div>
               )}
         </WidgetContainer>
       </WidgetRoot>

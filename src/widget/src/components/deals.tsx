@@ -19,7 +19,7 @@ function Deals(): JSX.Element {
     setTimeout(() => {
       setShowDeals(false);
       setIsExiting(false);
-    }, 300); // Match animation duration
+    }, 200); // Match animation duration
   };
 
   return (
