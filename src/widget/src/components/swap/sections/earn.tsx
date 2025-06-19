@@ -84,9 +84,9 @@ function EarnDetails(): JSX.Element {
           <InfoCard title="Total yield" value="28%" color="accent" className="flex-1" />
           <InfoCard title="Net fees" value="0.5%" color="primary" className="flex-1" />
         </div>
-        <InfoCard title="Yield Source" value="Multi-chain risk-adjusted allocation" color="primary" />
+        {/* <InfoCard title="Yield Source" value="Multi-chain risk-adjusted allocation" color="primary" />
         <InfoCard title="Aditional Rewards" value="Deposit bonus + Continual rewards" color="primary" />
-        <InfoCard title="Aditional Rewards" value="Assets remains in pool until TAC Mainnet Launch" color="primary" />
+        <InfoCard title="Aditional Rewards" value="Assets remains in pool until TAC Mainnet Launch" color="primary" /> */}
       </div>
     </WidgetContainer>
   );

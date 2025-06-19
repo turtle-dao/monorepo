@@ -3,7 +3,7 @@ import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import { TurtleButton } from "@/components/ui/TurtleButton";
 
-export function ConfirmButton(): JSX.Element {
+export function ConfirmButton({ className }: { className?: string }): JSX.Element {
   const { address } = useAccount();
 
   const { openConnectModal } = useConnectModal();
@@ -16,7 +16,7 @@ export function ConfirmButton(): JSX.Element {
 
   return address === undefined
     ? (
-        <TurtleButton variant="reversed" size="lg" fullWidth onClick={openConnectModal}>
+        <TurtleButton variant="reversed" size="lg" fullWidth onClick={openConnectModal} className={className}>
           Connect wallet
         </TurtleButton>
       )
@@ -28,6 +28,7 @@ export function ConfirmButton(): JSX.Element {
           // disabled={txStep !== TxStepValues.DONE && (confirmButtonDisabled || isConfirming || isPending)}
           // eslint-disable-next-line no-alert
           onClick={() => { alert("Confirm Transaction"); }}
+          className={className}
         >
           Confirm
         </TurtleButton>
