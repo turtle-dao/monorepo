@@ -17,6 +17,7 @@
     "@rainbow-me/rainbowkit": "^2.2.6",
     "@tanstack/react-query": "^5.80.6",
     "@tanstack/react-query-persist-client": "^5.80.6",
+    "@turtledev/api": "^1.4.5",
     "@turtledev/react": "^1.4.7",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

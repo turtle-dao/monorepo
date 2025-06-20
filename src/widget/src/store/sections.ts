@@ -5,7 +5,7 @@ import { atom } from "jotai";
 export const showPanelAtom = atom<boolean>(false);
 
 // Distributor Id
-export const distributorIdAtom = atom<string>("");
+export const distributorIdAtom = atom<string>("TURTLE");
 
 // Deposit data and chain
 export const selectedChainAtom = atom<string>("");
@@ -22,3 +22,13 @@ export const depositDetailsAtom = atom<{
   tokenDecimals: 0,
   chain: "",
 });
+
+export const selectedTokenAtom = atom<{
+  address: string;
+  name: string;
+  symbol: string;
+  decimals: number;
+  logo?: string;
+  balance: string;
+  price?: number;
+} | null>(null);

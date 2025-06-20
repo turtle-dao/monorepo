@@ -13,6 +13,8 @@ export function useAutoSelectDeal() {
     if (!deals?.deals)
       return [];
     return deals.deals.map((deal: any) => ({
+      id: deal.metadata.id,
+      tokenAddress: deal.token.address,
       tokenName: deal.token.name,
       tvl: deal.data.tvl,
       iconToken: deal.token.logos[0],

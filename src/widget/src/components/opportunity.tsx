@@ -11,12 +11,12 @@ interface OpportunityProps extends DealFormatted {
   onAnimatedClose?: () => void;
 }
 
-function Opportunity({ tokenName, tvl, iconToken, yieldPercentage, iconDeal, showPanelOnClick = false, onAnimatedClose }: OpportunityProps): JSX.Element {
+function Opportunity({ tokenName, tvl, iconToken, yieldPercentage, iconDeal, id, tokenAddress, showPanelOnClick = false, onAnimatedClose }: OpportunityProps): JSX.Element {
   const setShowPanel = useSetAtom(showPanelAtom);
   const setDealSelected = useSetAtom(dealSelectedAtom);
 
   const handleClick = (): void => {
-    setDealSelected({ tokenName, tvl, iconToken, yieldPercentage, iconDeal });
+    setDealSelected({ tokenName, tvl, iconToken, yieldPercentage, iconDeal, id, tokenAddress });
 
     if (showPanelOnClick) {
       setShowPanel(true);

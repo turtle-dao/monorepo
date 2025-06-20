@@ -147,6 +147,7 @@
         "@rainbow-me/rainbowkit": "^2.2.6",
         "@tanstack/react-query": "^5.80.6",
         "@tanstack/react-query-persist-client": "^5.80.6",
+        "@turtledev/api": "^1.4.5",
         "@turtledev/react": "^1.4.7",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
@@ -2901,6 +2902,8 @@
 
     "@turtledev/widget/@tailwindcss/vite": ["@tailwindcss/vite@4.1.8", "", { "dependencies": { "@tailwindcss/node": "4.1.8", "@tailwindcss/oxide": "4.1.8", "tailwindcss": "4.1.8" }, "peerDependencies": { "vite": "^5.2.0 || ^6" } }, "sha512-CQ+I8yxNV5/6uGaJjiuymgw0kEQiNKRinYbZXPdx1fk5WgiyReG0VaUx/Xq6aVNSUNJFzxm6o8FNKS5aMaim5A=="],
 
+    "@turtledev/widget/@turtledev/api": ["@turtledev/api@1.4.5", "", { "dependencies": { "viem": "^2.30.0", "zod": "^3.25.17" } }, "sha512-ANv/e7oNzVOdZrbNsAWTnJI55oCzs3s4VvCDXv/hbZ5l88Kw9NGArIDZStncRx6kIvYIdtUOuslvkXv1Q7G4jw=="],
+
     "@turtledev/widget/@turtledev/react": ["@turtledev/react@1.4.7", "", { "dependencies": { "@radix-ui/react-popover": "^1.1.14", "@radix-ui/react-slot": "^1.2.3", "@tanstack/query-sync-storage-persister": "^5.55.3", "@tanstack/react-query": "^5.55.3", "@tanstack/react-query-persist-client": "^5.55.3", "@turtledev/api": "1.4.5", "@vanilla-extract/css": "^1.17.2", "@vanilla-extract/dynamic": "^2.1.3", "@vanilla-extract/recipes": "^0.5.5", "@wagmi/core": "^2.17.2", "react": "^19.1.0", "ts-pattern": "^5.7.1", "wagmi": "^2.15.4", "wouter": "^3.7.0", "zod": "^3.25.17" } }, "sha512-QzObSsVuZqqzrrMyfXEd2aI8XPMqc6/HMso6AnQlTG48dDUUdpvDrVjZv2b4rGwojMOGBrnKkUxGg1rkv+NmHg=="],
 
     "@turtledev/widget/globals": ["globals@16.2.0", "", {}, "sha512-O+7l9tPdHCU320IigZZPj5zmRCFG9xHmx9cU8FqU2Rp+JN714seHV+2S9+JslCpY4gJwU2vOGox0wzgae/MCEg=="],
@@ -3270,8 +3273,6 @@
     "@turtledev/widget/@tailwindcss/vite/@tailwindcss/node": ["@tailwindcss/node@4.1.8", "", { "dependencies": { "@ampproject/remapping": "^2.3.0", "enhanced-resolve": "^5.18.1", "jiti": "^2.4.2", "lightningcss": "1.30.1", "magic-string": "^0.30.17", "source-map-js": "^1.2.1", "tailwindcss": "4.1.8" } }, "sha512-OWwBsbC9BFAJelmnNcrKuf+bka2ZxCE2A4Ft53Tkg4uoiE67r/PMEYwCsourC26E+kmxfwE0hVzMdxqeW+xu7Q=="],
 
     "@turtledev/widget/@tailwindcss/vite/@tailwindcss/oxide": ["@tailwindcss/oxide@4.1.8", "", { "dependencies": { "detect-libc": "^2.0.4", "tar": "^7.4.3" }, "optionalDependencies": { "@tailwindcss/oxide-android-arm64": "4.1.8", "@tailwindcss/oxide-darwin-arm64": "4.1.8", "@tailwindcss/oxide-darwin-x64": "4.1.8", "@tailwindcss/oxide-freebsd-x64": "4.1.8", "@tailwindcss/oxide-linux-arm-gnueabihf": "4.1.8", "@tailwindcss/oxide-linux-arm64-gnu": "4.1.8", "@tailwindcss/oxide-linux-arm64-musl": "4.1.8", "@tailwindcss/oxide-linux-x64-gnu": "4.1.8", "@tailwindcss/oxide-linux-x64-musl": "4.1.8", "@tailwindcss/oxide-wasm32-wasi": "4.1.8", "@tailwindcss/oxide-win32-arm64-msvc": "4.1.8", "@tailwindcss/oxide-win32-x64-msvc": "4.1.8" } }, "sha512-d7qvv9PsM5N3VNKhwVUhpK6r4h9wtLkJ6lz9ZY9aeZgrUWk1Z8VPyqyDT9MZlem7GTGseRQHkeB1j3tC7W1P+A=="],
-
-    "@turtledev/widget/@turtledev/react/@turtledev/api": ["@turtledev/api@1.4.5", "", { "dependencies": { "viem": "^2.30.0", "zod": "^3.25.17" } }, "sha512-ANv/e7oNzVOdZrbNsAWTnJI55oCzs3s4VvCDXv/hbZ5l88Kw9NGArIDZStncRx6kIvYIdtUOuslvkXv1Q7G4jw=="],
 
     "@typescript-eslint/typescript-estree/minimatch/brace-expansion": ["brace-expansion@2.0.1", "", { "dependencies": { "balanced-match": "^1.0.0" } }, "sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA=="],
 

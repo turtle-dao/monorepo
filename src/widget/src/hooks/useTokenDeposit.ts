@@ -1,6 +1,6 @@
 import type { EarnRouteOptions, EarnRouteResponse } from "@turtledev/api";
 import { useAtomValue } from "jotai";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { parseUnits } from "viem/utils";
 import { useAccount } from "wagmi";
 import { useEarnRoute } from "@/hooks/useRoute";
@@ -42,7 +42,17 @@ function useTokenDeposit(): { fetchedRoute: EarnRouteResponse | null; routeError
     selectedToken,
     distributorId,
   ]);
+
+  useEffect(() => {
+    console.warn("routeParams", routeParams);
+  }, [routeParams]);
+
   const { data: fetchedRoute, error: routeError } = useEarnRoute(routeParams);
+
+  useEffect(() => {
+    console.warn("fetchedRoute", fetchedRoute);
+  }, [fetchedRoute]);
+
   return { fetchedRoute: fetchedRoute ?? null, routeError: routeError ?? null };
 }
 
