@@ -11,7 +11,9 @@ import { defaultWidgetStyleConfig } from "./store/widget-style-config";
 import { cn } from "./utils";
 
 export interface DealFormatted {
+  id: string;
   tokenName: string;
+  tokenAddress: string;
   tvl: number;
   iconToken: string;
   iconDeal: string;
