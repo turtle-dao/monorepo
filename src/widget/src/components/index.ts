@@ -1,3 +1,3 @@
-export * from "./chain-selector";
+export * from "./wallet-section";
 export * from "./MenuBar";
 export * from "./swap";

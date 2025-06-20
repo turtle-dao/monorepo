@@ -1,9 +1,8 @@
 import type { JSX } from "react";
 import { TurtleLogo } from "@turtledev/react";
-import { ChevronDown } from "lucide-react";
 import { InteractiveIconOverlay } from "../ui/interactive-icon-overlay";
 
-function WalletSelector(): JSX.Element {
+function AccountDetails(): JSX.Element {
   // Mock wallet address - you can replace this with actual wallet connection logic
   const walletAddress = "0x123...hj67kk5bsy";
 
@@ -17,14 +16,12 @@ function WalletSelector(): JSX.Element {
     <InteractiveIconOverlay
       icon={walletIcon}
       ringClass="ring-green-400/60"
-      onClick={() => console.warn("Wallet selector clicked")}
     >
       <span className="text-[var(--color-text-primary)] font-medium text-sm">
         {walletAddress}
       </span>
-      <ChevronDown className="w-4 h-4 text-[var(--color-text-primary)]" />
     </InteractiveIconOverlay>
   );
 }
 
-export default WalletSelector;
+export default AccountDetails;

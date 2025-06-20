@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 // TODO: create a pkg for manage supported chains and utilities
 import { chainLogo, chainName } from "@/lib/chains";
 import { TurtleLogo } from "../ui/turtle-logo";
-import WalletSelector from "../wallet-selector/wallet-selector";
+import WalletSelector from "./account-details";
 import { ChainSelectorV2 } from "./chain-selector-v2";
 
 // Example: Only Ethereum Mainnet for now

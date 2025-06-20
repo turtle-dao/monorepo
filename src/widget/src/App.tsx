@@ -1,11 +1,8 @@
-import { TurtleLogo } from "@turtledev/react";
 import { useAtomValue } from "jotai";
 import { type JSX, useState } from "react";
 import { ChainSelector, Swap } from "./components";
-import { ChainSelectorV2 } from "./components/chain-selector/chain-selector-v2";
 import Deals from "./components/deals";
 import { MenuBar } from "./components/MenuBar";
-import { ComboBoxOverlay } from "./components/ui/example-combobox-overlay";
 import { WidgetContainer } from "./components/ui/widget-container";
 import { WidgetRoot } from "./components/widget/widget-root";
 import { TAB_DISCOVER, TAB_PORTFOLIO, TAB_TURTLE_EARN, tabButtons, type TabType } from "./constants";
@@ -47,6 +44,7 @@ function App(): JSX.Element {
                   <div className="flex justify-center items-center text-4xl font-bold font-sans py-2">
                     <span className="text-[var(--color-text-accent)] dark:text-[var(--color-text-accent-dark)]">Turtle Club</span>
                   </div>
+
                   <ChainSelector />
                   {tab === TAB_PORTFOLIO && <div className="flex-1 min-h-0">Positions</div>}
                   {tab === TAB_TURTLE_EARN && <Swap />}

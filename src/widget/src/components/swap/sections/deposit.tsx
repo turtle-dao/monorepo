@@ -1,6 +1,6 @@
 import type { JSX } from "react";
 import { useAccount, useBalance } from "wagmi";
-import { ChainSelect } from "@/components/chain-selector/chain-selector";
+import { ChainSelect } from "@/components/wallet-section/wallet-section";
 import { Button } from "@/components/ui/shadcn/button";
 import { WidgetContainer } from "@/components/ui/widget-container";
 import { chainLogo, chainName } from "@/lib/chains";
