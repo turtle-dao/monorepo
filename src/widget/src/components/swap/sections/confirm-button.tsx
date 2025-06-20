@@ -23,8 +23,6 @@ export function ConfirmButton({ className }: { className?: string }): JSX.Elemen
   }, [routeError]);
   // Get error text if error exists
   // TODO: Migrate validationError
-  // TODO: Parse enso transaction (see confirm-button in turtle-app)
-  // TODO: Handle Swap
   // TODO: Handle Click Action and Button message based on txStep
 
   const handleConfirm = async (tx: {
@@ -67,11 +65,20 @@ export function ConfirmButton({ className }: { className?: string }): JSX.Elemen
                 onClick={() => handleConfirm(step.tx)}
                 className={className}
               >
-                Confirm
+                Confirm (Step
+                {" "}
+                {index + 1}
+                {" - "}
+                {step.kind.toUpperCase()}
+                )
               </TurtleButton>
             ))
           )}
+          {routeError && (
+            <TurtleButton disabled variant="reversed" size="lg" fullWidth className={className}>
+              Confirm
+            </TurtleButton>
+          )}
         </>
-
       );
 }
